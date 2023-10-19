@@ -5,6 +5,7 @@ import { ArrowDownIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
+import { BadgeDiscount } from "./badge-discount";
 
 interface Props {
 
@@ -20,11 +21,9 @@ export function ProductCard({ product }: Props) {
 
             <Link href={`/product/${product.slug}/0`}>
                 <div className="relative bg-accent rounded-lg h-44 w-40 flex justify-center items-center p-4 mb-4">
-                    {product.discountPercentage > 0 &&
-                        <Badge className="text-xs bg-primary rounded-full px-2 py-1 absolute top-2 left-2 flex gap-1 items-center">
-                            <ArrowDownIcon size={10} /> {product.discountPercentage}%
-                        </Badge>
-                    }
+                    <BadgeDiscount className="absolute top-2 left-2">
+                        {product.discountPercentage}
+                    </BadgeDiscount>
                     <Image src={product.imageUrls[0]} alt={product.name} width={0} height={0} sizes="300px" className="w-auto h-auto " />
                 </div>
                 <div className="text-xs text-ellipsis w-40 overflow-hidden whitespace-nowrap">{product.name}</div>

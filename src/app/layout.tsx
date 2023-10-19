@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AuthProvider } from "../providers/auth";
 import "./globals.css";
+import { CartProvider } from "@/providers/cart";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,15 +19,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <body className={inter.className}>
         <div className="flex h-screen flex-col">
           <AuthProvider>
-            <Header />
-            <main className=" flex-1 mt-20">
-              {children}
-            </main>
-            <Footer />
+            <CartProvider>
+              <Header />
+              <main className=" flex-1 mt-20">
+                {children}
+              </main>
+              <Footer />
+            </CartProvider>
           </AuthProvider>
         </div>
       </body>

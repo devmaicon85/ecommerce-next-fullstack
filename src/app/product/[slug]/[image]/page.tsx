@@ -14,6 +14,7 @@ import { SectionTitle } from "@/components/section-title"
 import { ProductListHorizontal } from "@/components/product-list-horizontal"
 import { CatalogCategories } from "@/app/categories/components/catalogCategories"
 import { BannerFreeShopping } from "@/components/banner-free-shopping"
+import { BadgeDiscount } from "@/components/badge-discount"
 
 export default async function ProductPage({ params }: { params: { slug: string, image: number } }) {
 
@@ -167,12 +168,7 @@ function ProductPrice({ basePrice, discountPercentage }: ProductPriceProps) {
                     <div className="text-2xl relative font-bold flex flex-col gap-2  ">
                         <div className="flex gap-2">
                             {FormatCurrency(CalculatePriceDiscount(+basePrice, discountPercentage))}
-
-                            {discountPercentage > 0 &&
-                                <Badge className="text-sm bg-primary rounded-full px-3 h-7 flex gap-1 items-center">
-                                    <ArrowDownIcon size={10} /> {discountPercentage}%
-                                </Badge>
-                            }
+                            <BadgeDiscount>{discountPercentage}</BadgeDiscount>
                         </div>
 
                         <div className="text-base opacity-50 flex top-8 absolute font-extralight line-through">
