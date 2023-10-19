@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 
 import { Home, HomeIcon, ListOrdered, LogInIcon, LogOut, Menu, MenuIcon, PercentCircleIcon, PercentIcon, ShoppingCart, User2Icon } from "lucide-react";
@@ -8,6 +8,9 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Separator } from "./ui/separator";
+import { Categories } from "@/app/(home)/components/categories";
+import { Logo } from "./logo";
+import Link from "next/link";
 
 
 
@@ -27,15 +30,16 @@ export function Header() {
                     <SheetContent side="left" className="gap-4 flex flex-col">
                         <SheetHeader className="text-left text-lg font-semibold">Menu</SheetHeader>
                         {status === 'unauthenticated' && <Button variant="outline" className="w-full h-12 gap-2" onClick={() => signIn()}><LogInIcon /> Fazer Login</Button>}
-                        <Button variant="outline" className="w-full h-12 gap-2"><HomeIcon /> Página Inicial</Button>
-                        <Button variant="outline" className="w-full h-12 gap-2"><PercentIcon /> Ofertas</Button>
-                        <Button variant="outline" className="w-full h-12 gap-2"><ListOrdered /> Catálogo</Button>
+                        <Link href={"/"} className={`${buttonVariants({ variant: "outline" })} py-5 gap-2`}><HomeIcon /> Página Inicial</Link>
+
+                        <Link href={"/catalog"} className={`${buttonVariants({ variant: "outline" })} py-5 gap-2`}><PercentIcon /> Ofertas</Link>
+                        <Link href={"/catalog"} className={`${buttonVariants({ variant: "outline" })} py-5 gap-2`}><ListOrdered /> Catálogo</Link>
+
+
                     </SheetContent>
                 </Sheet>
 
-                <h1 className="text-lg font-semibold">
-                    <span className="text-primary">FSW </span>Store
-                </h1>
+                <Logo />
 
 
                 <div className="flex items-center gap-4">
