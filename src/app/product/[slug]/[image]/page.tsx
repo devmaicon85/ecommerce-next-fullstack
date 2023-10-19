@@ -27,8 +27,8 @@ export default async function ProductPage({ params }: { params: { slug: string, 
         <div className="relative">
             <div className="flex flex-col  sticky top-0">
                 <hr className="my-5 border-0" />
-                <div className="flex flex-col ">
-                    <div className=" p-5 bg-accent min-w-[300px] min-h-[300px] w-full flex justify-center items-center">
+                <div className="flex flex-col bg-accent w-full items-center justify-center">
+                    <div className=" p-5 flex justify-center items-center min-w-[300px] min-h-[300px] max-w-[300px] max-h-[300px] ">
                         <Image src={product.imageUrls[params.image]} alt={product.name} width={0} height={0} sizes="300px" className="w-auto h-auto" />
                     </div>
                 </div>
@@ -44,10 +44,10 @@ export default async function ProductPage({ params }: { params: { slug: string, 
                         // scroll={false} -> Não da Scroll na página ao clicar no link
                         // replace={true} -> Substitui a ultima página do histórico de navegação para que ao clicar em voltar, volte para a página anterior e não imagem anterior
                         <Link shallow={true} scroll={false} replace={true} href={`/product/${product.slug}/${index}`} key={index}>
-                            <div className={cn(`border cursor-pointer bg-accent rounded-lg min-h-[100px] min-w-[100px] w-full flex max-w-[100px] justify-center items-center p-4 mb-4`,
+                            <div className={cn(`border cursor-pointer bg-accent rounded-lg w-[100px] h-[100px] overflow-hidden  flex justify-center items-center p-2`,
                                 +params.image === +index ? "border-primary" : ""
                             )}>
-                                <Image src={image} alt={product.name} width={0} height={0} sizes="100px" className="w-auto h-auto " />
+                                <Image src={image} alt={product.name} width={0} height={0} sizes="100px" style={{ objectFit: "contain" }} className="w-auto h-auto" />
                             </div>
                         </Link>
                     ))}
