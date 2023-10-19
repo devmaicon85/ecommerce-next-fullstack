@@ -6,7 +6,7 @@ interface Props {
     products: Product[]
 }
 
-export function ProductList({ products }: Props) {
+export function ProductListHorizontal({ products }: Props) {
 
 
     return (

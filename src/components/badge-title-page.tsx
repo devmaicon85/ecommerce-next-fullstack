@@ -8,8 +8,7 @@ export function BadgeTitlePage({ children }: Props) {
 
     return (
 
-        <Badge className="gap-1 uppercase text-base px-5 py-1 border rounded-full border-primary" variant={"outline"}>
-            
+        <Badge className="gap-2 uppercase text-sm px-5 py-1 border rounded-full border-primary" variant={"outline"}>
             {children}
         </Badge>
     )

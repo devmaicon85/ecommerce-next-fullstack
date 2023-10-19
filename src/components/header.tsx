@@ -1,14 +1,13 @@
 "use client"
 
-import { Button, buttonVariants } from "./ui/button";
-import { Card, CardContent } from "./ui/card";
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
 
-import { Home, HomeIcon, ListOrdered, LogInIcon, LogOut, Menu, MenuIcon, PercentCircleIcon, PercentIcon, ShoppingCart, User2Icon } from "lucide-react";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
+import { HomeIcon, ListOrdered, LogInIcon, LogOut, Menu, MenuIcon, PercentCircleIcon, PercentIcon, ShoppingCart, User2Icon } from "lucide-react";
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Separator } from "./ui/separator";
-import { Categories } from "@/app/(home)/components/categories";
 import { Logo } from "./logo";
 import Link from "next/link";
 
@@ -30,10 +29,19 @@ export function Header() {
                     <SheetContent side="left" className="gap-4 flex flex-col">
                         <SheetHeader className="text-left text-lg font-semibold">Menu</SheetHeader>
                         {status === 'unauthenticated' && <Button variant="outline" className="w-full h-12 gap-2" onClick={() => signIn()}><LogInIcon /> Fazer Login</Button>}
-                        <Link href={"/"} className={`${buttonVariants({ variant: "outline" })} py-5 gap-2`}><HomeIcon /> Página Inicial</Link>
 
-                        <Link href={"/catalog"} className={`${buttonVariants({ variant: "outline" })} py-5 gap-2`}><PercentIcon /> Ofertas</Link>
-                        <Link href={"/catalog"} className={`${buttonVariants({ variant: "outline" })} py-5 gap-2`}><ListOrdered /> Catálogo</Link>
+                        <SheetClose asChild>
+                            <MenuButton href="/">
+                                <HomeIcon />Página Inicial
+                            </MenuButton>
+                        </SheetClose>
+
+                        <SheetClose asChild>
+                            <MenuButton href="/catalog"><PercentCircleIcon />Ofertas</MenuButton>
+                        </SheetClose>
+                        <SheetClose asChild>
+                            <MenuButton href="/catalog"><ListOrdered />Catálogo</MenuButton>
+                        </SheetClose>
 
 
                     </SheetContent>
@@ -88,6 +96,16 @@ export function Header() {
             </Card>
 
             <Separator></Separator>
-        </header>
+        </header >
+    );
+}
+
+function MenuButton({ children, href }: { children: React.ReactNode, href: string }) {
+    return (
+        <Link href={href} >
+            <Button variant="outline" className="flex py-6 w-full justify-start gap-2">
+                {children}
+            </Button>
+        </Link>
     );
 }
