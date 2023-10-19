@@ -3,13 +3,13 @@
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 
-import { HomeIcon, ListOrdered, LogInIcon, LogOut, Menu, MenuIcon, PercentCircleIcon, PercentIcon, ShoppingCart, User2Icon } from "lucide-react";
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
+import { HomeIcon, ListOrdered, LogInIcon, LogOut, MenuIcon, PercentCircleIcon, ShoppingCart, User2Icon } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { Logo } from "./logo";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Separator } from "./ui/separator";
-import { Logo } from "./logo";
-import Link from "next/link";
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
 
 
 
@@ -18,7 +18,7 @@ export function Header() {
     const { data, status } = useSession();
 
     return (
-        <header>
+        <header className="fixed z-50 w-full">
             <Card className="flex justify-between rounded-none p-6">
                 <Sheet>
                     <SheetTrigger asChild>
@@ -30,19 +30,9 @@ export function Header() {
                         <SheetHeader className="text-left text-lg font-semibold">Menu</SheetHeader>
                         {status === 'unauthenticated' && <Button variant="outline" className="w-full h-12 gap-2" onClick={() => signIn()}><LogInIcon /> Fazer Login</Button>}
 
-                        <SheetClose asChild>
-                            <MenuButton href="/">
-                                <HomeIcon />Página Inicial
-                            </MenuButton>
-                        </SheetClose>
-
-                        <SheetClose asChild>
-                            <MenuButton href="/catalog"><PercentCircleIcon />Ofertas</MenuButton>
-                        </SheetClose>
-                        <SheetClose asChild>
-                            <MenuButton href="/catalog"><ListOrdered />Catálogo</MenuButton>
-                        </SheetClose>
-
+                        <MenuButton href="/"><HomeIcon />Página Inicial</MenuButton>
+                        <MenuButton href="/catalog"><PercentCircleIcon />Ofertas</MenuButton>
+                        <MenuButton href="/catalog"><ListOrdered />Catálogo</MenuButton>
 
                     </SheetContent>
                 </Sheet>
@@ -96,16 +86,20 @@ export function Header() {
             </Card>
 
             <Separator></Separator>
+
         </header >
     );
 }
 
 function MenuButton({ children, href }: { children: React.ReactNode, href: string }) {
     return (
-        <Link href={href} >
-            <Button variant="outline" className="flex py-6 w-full justify-start gap-2">
-                {children}
-            </Button>
-        </Link>
+        <SheetClose asChild>
+
+            <Link href={href} >
+                <Button variant="outline" className="flex py-6 w-full justify-start gap-2">
+                    {children}
+                </Button>
+            </Link>
+        </SheetClose>
     );
 }

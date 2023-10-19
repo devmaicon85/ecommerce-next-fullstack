@@ -11,7 +11,7 @@ export function ProductListHorizontal({ products }: Props) {
 
     return (
 
-        <div className="flex w-full gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
+        <div className="flex w-full gap-4  px-5 overflow-x-auto [&::-webkit-scrollbar]:hidden">
 
             {products.map((product) => (
                 <ProductCard key={product.id} product={product} />

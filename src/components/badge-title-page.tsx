@@ -1,4 +1,3 @@
-import { ShapesIcon } from "lucide-react";
 import { Badge } from "./ui/badge";
 
 interface Props {

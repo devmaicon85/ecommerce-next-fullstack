@@ -1,6 +1,5 @@
 import { BadgeTitlePage } from "@/components/badge-title-page";
 import { CategoryCard } from "@/components/category-card";
-import { Badge } from "@/components/ui/badge";
 import { prismaClient } from "@/lib/prisma";
 import { ShapesIcon } from "lucide-react";
 import Link from "next/link";

@@ -1,6 +1,5 @@
 import { BadgeTitlePage } from "@/components/badge-title-page"
 import { ProductCard } from "@/components/product-card"
-import { ProductListHorizontal } from "@/components/product-list-horizontal"
 import { categoryIcon } from "@/constants/category-icons"
 import { prismaClient } from "@/lib/prisma"
 

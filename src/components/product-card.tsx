@@ -1,10 +1,10 @@
 import { CalculatePriceDiscount } from "@/helpers/calculatePriceDiscount";
 import { FormatCurrency } from "@/helpers/formatCurrency";
 import { Product } from "@prisma/client";
-import { ArrowDownIcon, MoveDownIcon, Star } from "lucide-react";
+import { ArrowDownIcon } from "lucide-react";
 import Image from "next/image";
-import { Badge } from "./ui/badge";
 import Link from "next/link";
+import { Badge } from "./ui/badge";
 
 interface Props {
 
@@ -18,7 +18,7 @@ export function ProductCard({ product }: Props) {
 
         <div className="flex flex-col cursor-pointer hover:scale-105 transition-all duration-150 ">
 
-            <Link href={`/product/${product.slug}`}>
+            <Link href={`/product/${product.slug}/0`}>
                 <div className="relative bg-accent rounded-lg h-44 w-40 flex justify-center items-center p-4 mb-4">
                     {product.discountPercentage > 0 &&
                         <Badge className="text-xs bg-primary rounded-full px-2 py-1 absolute top-2 left-2 flex gap-1 items-center">

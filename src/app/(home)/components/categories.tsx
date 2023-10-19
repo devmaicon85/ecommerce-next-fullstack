@@ -1,8 +1,7 @@
-import { Category } from "@prisma/client";
 import { Badge } from "@/components/ui/badge";
-import { Headphones, HeadphonesIcon, KeyboardIcon, Monitor, MonitorIcon, MouseIcon, SpeakerIcon, SquareIcon } from "lucide-react";
-import Link from "next/link";
 import { categoryIcon } from "@/constants/category-icons";
+import { Category } from "@prisma/client";
+import Link from "next/link";
 
 
 

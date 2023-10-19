@@ -1,11 +1,8 @@
-import Image from 'next/image';
-import { Categories } from './components/categories';
-import { prismaClient } from '@/lib/prisma';
-import { SectionTitle } from '@/components/section-title';
-import { BannerCard } from '@/components/banner-card';
-import { Footer } from '@/components/footer';
 import { Banners } from '@/components/banners';
+import { SectionTitle } from '@/components/section-title';
+import { prismaClient } from '@/lib/prisma';
 import { ProductListHorizontal } from '../../components/product-list-horizontal';
+import { Categories } from './components/categories';
 
 
 export default async function HomePage() {

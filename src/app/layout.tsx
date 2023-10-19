@@ -1,9 +1,9 @@
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import { Header } from "@/components/header";
 import { AuthProvider } from "../providers/auth";
-import { Footer } from "@/components/footer";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex h-full flex-col">
+        <div className="flex h-screen flex-col">
           <AuthProvider>
             <Header />
-            <main className=" flex-1">
+            <main className=" flex-1 mt-20">
               {children}
             </main>
             <Footer />

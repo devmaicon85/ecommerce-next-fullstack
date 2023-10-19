@@ -1,4 +1,4 @@
-import { KeyboardIcon, MonitorIcon, Headphones, SquareIcon, SpeakerIcon, MouseIcon } from "lucide-react";
+import { Headphones, KeyboardIcon, MonitorIcon, MouseIcon, SpeakerIcon, SquareIcon } from "lucide-react";
 
 export const categoryIcon = {
     keyboards: <KeyboardIcon />,
