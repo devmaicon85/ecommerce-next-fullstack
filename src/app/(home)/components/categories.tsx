@@ -18,7 +18,7 @@ export async function Categories() {
 
         <>
             {categories.map((category) => (
-                <Link href={`/category/${category.slug}`} key={category.id}>
+                <Link href={`/categories/${category.slug}`} key={category.id}>
                     <Badge key={category.id} variant={"outline"} className="py-3 flex justify-center gap-2 cursor-pointer hover:bg-primary" >
                         {categoryIcon[category.slug as keyof typeof categoryIcon]}
                         <span className="text-xs font-bold">{category.name}</span>

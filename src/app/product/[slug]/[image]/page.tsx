@@ -3,9 +3,17 @@ import { CalculatePriceDiscount } from "@/helpers/calculatePriceDiscount"
 import { FormatCurrency } from "@/helpers/formatCurrency"
 import { prismaClient } from "@/lib/prisma"
 import { cn } from "@/lib/utils"
-import { ArrowDownIcon } from "lucide-react"
+import { ArrowDownIcon, Truck, TruckIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { ButtonAddCart } from "../../components/button-add-cart"
+import { Product } from "@prisma/client"
+import { BadgeTitlePage } from "@/components/badge-title-page"
+import { ProductCard } from "@/components/product-card"
+import { SectionTitle } from "@/components/section-title"
+import { ProductListHorizontal } from "@/components/product-list-horizontal"
+import { CatalogCategories } from "@/app/categories/components/catalogCategories"
+import { BannerFreeShopping } from "@/components/banner-free-shopping"
 
 export default async function ProductPage({ params }: { params: { slug: string, image: number } }) {
 
@@ -15,6 +23,26 @@ export default async function ProductPage({ params }: { params: { slug: string, 
         where: {
             slug: params.slug
         },
+        select: {
+            name: true,
+            slug: true,
+            description: true,
+            imageUrls: true,
+            basePrice: true,
+            discountPercentage: true,
+            id: true,
+            Category: {
+                include: {
+                    products: {
+                        where: {
+                            slug: {
+                                not: params.slug
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
     })
 
@@ -25,7 +53,7 @@ export default async function ProductPage({ params }: { params: { slug: string, 
 
     return (
         <div className="relative">
-            <div className="flex flex-col  sticky top-0">
+            <div className="flex flex-col  sticky top-0 -z-10">
                 <hr className="my-5 border-0" />
                 <div className="flex flex-col bg-accent w-full items-center justify-center">
                     <div className=" p-5 flex justify-center items-center min-w-[300px] min-h-[300px] max-w-[300px] max-h-[300px] ">
@@ -34,7 +62,7 @@ export default async function ProductPage({ params }: { params: { slug: string, 
                 </div>
             </div >
 
-            <div className="bg-background opacity-95 rounded-t-3xl left-0 right-0 py-10 flex flex-col justify-center items-center w-full ">
+            <div className="bg-background opacity-[0.98] rounded-t-3xl left-0 right-0 py-10 flex flex-col justify-center items-center w-full ">
 
 
                 {/* IMAGES ADICIONAIS */}
@@ -63,44 +91,103 @@ export default async function ProductPage({ params }: { params: { slug: string, 
 
                     <hr className="my-5 border-0" />
 
-                    <div className="gap-2 flex flex-col">
-                        {product.discountPercentage > 0 &&
-                            <>
-                                <div className="text-2xl relative font-bold flex flex-col gap-2  ">
-                                    <div className="flex gap-2">
-                                        {FormatCurrency(CalculatePriceDiscount(+product.basePrice, product.discountPercentage))}
-
-                                        {product.discountPercentage > 0 &&
-                                            <Badge className="text-sm bg-primary rounded-full px-3 h-7 flex gap-1 items-center">
-                                                <ArrowDownIcon size={10} /> {product.discountPercentage}%
-                                            </Badge>
-                                        }
-                                    </div>
-
-                                    <div className="text-base opacity-50 flex top-8 absolute font-extralight line-through">
-                                        De: {FormatCurrency(+product.basePrice)}
-                                    </div>
-                                </div>
-
-                            </>
-                        }
-                        {product.discountPercentage === 0 && <>
-                            <span className="text-2xl font-bold ">{FormatCurrency(+product.basePrice)}</span></>
-                        }
-                    </div>
-
-
-                    <hr className="my-5 border-0" />
-
+                    {/* <ProductPrice product={product} /> */}
 
 
                     <div className="opacity-50 text-sm  text-justify leading-6">
                         {product.description}
                     </div>
 
+                    <hr className="my-5 border-0" />
+
+                    <ProductPrice basePrice={+product.basePrice} discountPercentage={product.discountPercentage} />
+
+                    <hr className="my-10 border-0" />
+
+
+                    <div className="flex flex-wrap gap-8 items-center justify-center ">
+                        <div className="flex-1">
+                            <BannerFreeShopping />
+                        </div>
+                        <div className="flex-1 flex justify-center lg:justify-end">
+                            <ButtonAddCart productId={product.id} />
+                        </div>
+                    </div>
 
                 </div>
+
+
+
+
+
             </div>
+
+
+
+
+            <div className="bg-background w-full flex flex-col">
+
+
+
+                <hr className="my-10 border-0" />
+
+
+                {/* PRODUTOS RECOMENDADOS */}
+                <div className="flex flex-col bg-background md:container">
+                    <SectionTitle>PRODUTOS RECOMENDADOS</SectionTitle>
+                    <ProductListHorizontal products={product.Category.products} />
+                </div>
+
+
+                <hr className="my-10 border-0" />
+
+            </div>
+
+
         </div>
     )
 }
+
+
+
+interface ProductPriceProps {
+
+    discountPercentage: number;
+    basePrice: number;
+
+}
+
+function ProductPrice({ basePrice, discountPercentage }: ProductPriceProps) {
+
+    return (
+
+        <div className="gap-2 flex flex-col">
+            {discountPercentage > 0 &&
+                <>
+                    <div className="text-2xl relative font-bold flex flex-col gap-2  ">
+                        <div className="flex gap-2">
+                            {FormatCurrency(CalculatePriceDiscount(+basePrice, discountPercentage))}
+
+                            {discountPercentage > 0 &&
+                                <Badge className="text-sm bg-primary rounded-full px-3 h-7 flex gap-1 items-center">
+                                    <ArrowDownIcon size={10} /> {discountPercentage}%
+                                </Badge>
+                            }
+                        </div>
+
+                        <div className="text-base opacity-50 flex top-8 absolute font-extralight line-through">
+                            De: {FormatCurrency(+basePrice)}
+                        </div>
+                    </div>
+
+                </>
+            }
+            {discountPercentage === 0 && <>
+                <span className="text-2xl font-bold ">{FormatCurrency(+basePrice)}</span></>
+            }
+        </div>
+
+    )
+}
+
+
