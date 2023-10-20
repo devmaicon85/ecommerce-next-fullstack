@@ -1,20 +1,39 @@
-import { ShoppingCart, ShoppingCartIcon, StethoscopeIcon } from "lucide-react";
+import { Loader2, ShoppingCart, ShoppingCartIcon } from "lucide-react";
 import { BadgeTitlePage } from "./badge-title-page";
-import { useContext, useState } from "react";
-import { CartProduct, useCartContext } from "@/providers/cart";
-import { ProductCard } from "./product-card";
+import { useCartContext } from "@/providers/cart";
 import { CartItem } from "./cart-item";
-import { ButtonMinusPlus } from "./button-minus-plus";
-import { Product } from "@prisma/client";
 import { SectionTitle } from "./section-title";
-import { Separator } from "./ui/separator";
 import { FormatCurrency } from "@/helpers/formatCurrency";
 import { ScrollArea } from "./ui/scroll-area";
 import { Button } from "./ui/button";
+import { createCheckout } from "@/actions/checkout";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 
 export function Cart() {
 
     const { products, cartBasePrice, cartShoppingValue, cartTotalDiscount, cartTotalPrice } = useCartContext();
+
+    const [loading, setLoading] = useState(false);
+
+    const { push } = useRouter();
+
+    async function handleFinishPurchaseClick() {
+
+        setLoading(true);
+        const checkout = await createCheckout(products);
+
+        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
+
+        stripe?.redirectToCheckout({
+            sessionId: checkout.id
+        })
+
+        
+        setLoading(false);
+
+    }
 
 
     return (
@@ -78,7 +97,10 @@ export function Cart() {
                     <hr className="my-2 border-1" />
 
 
-                    <Button className="uppercase w-full">Finalizar Compra</Button>
+                    <Button disabled={loading} onClick={handleFinishPurchaseClick} className="uppercase w-full gap-2">
+                        {loading && <Loader2 className="animate-spin mr-2" />}
+                        Finalizar Compra
+                    </Button>
                 </div>
             }
         </div>

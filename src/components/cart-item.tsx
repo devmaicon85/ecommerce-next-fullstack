@@ -1,4 +1,3 @@
-import { CalculatePriceDiscount } from "@/helpers/calculatePriceDiscount";
 import { FormatCurrency } from "@/helpers/formatCurrency";
 import { Product } from "@prisma/client";
 import { ArrowDownIcon, Trash } from "lucide-react";
@@ -9,6 +8,7 @@ import { BadgeDiscount } from "./badge-discount";
 import { ButtonMinusPlus } from "./button-minus-plus";
 import { CartProduct, useCartContext } from "@/providers/cart";
 import { Button } from "./ui/button";
+import { ProductHelper } from "@/helpers/productHelper";
 
 interface Props {
 
@@ -31,7 +31,7 @@ export function CartItem({ product }: Props) {
                 <div className="text-xs text-ellipsis w-full overflow-hidden whitespace-nowrap">{product.name}</div>
                 <div className="gap-2 flex items-center ">
                     {product.discountPercentage > 0 && <>
-                        <span className="text-base font-bold ">{FormatCurrency(CalculatePriceDiscount(+product.basePrice, product.discountPercentage))}</span>
+                        <span className="text-base font-bold ">{FormatCurrency(ProductHelper.calculate(product).totalPrice)}</span>
                         <span className="text-xs opacity-50 font-extralight line-through">{FormatCurrency(+product.basePrice)}</span></>
                     }
                     {product.discountPercentage === 0 && <>

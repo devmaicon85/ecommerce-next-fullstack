@@ -1,4 +1,3 @@
-import { CalculatePriceDiscount } from "@/helpers/calculatePriceDiscount";
 import { FormatCurrency } from "@/helpers/formatCurrency";
 import { Product } from "@prisma/client";
 import { ArrowDownIcon } from "lucide-react";
@@ -6,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { BadgeDiscount } from "./badge-discount";
+import { ProductHelper } from "@/helpers/productHelper";
 
 interface Props {
 
@@ -29,7 +29,7 @@ export function ProductCard({ product }: Props) {
                 <div className="text-xs text-ellipsis w-40 overflow-hidden whitespace-nowrap">{product.name}</div>
                 <div className="gap-2 flex items-center ">
                     {product.discountPercentage > 0 && <>
-                        <span className="text-base font-bold ">{FormatCurrency(CalculatePriceDiscount(+product.basePrice, product.discountPercentage))}</span>
+                        <span className="text-base font-bold ">{FormatCurrency(ProductHelper.calculate(product).totalPrice)}</span>
                         <span className="text-xs opacity-50 font-extralight line-through">{FormatCurrency(+product.basePrice)}</span></>
                     }
                     {product.discountPercentage === 0 && <>

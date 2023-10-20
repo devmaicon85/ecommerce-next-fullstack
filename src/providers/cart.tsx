@@ -1,11 +1,11 @@
 "use client"
 
 import { Sheet } from "@/components/ui/sheet";
-import { CalculatePriceDiscount } from "@/helpers/calculatePriceDiscount";
+import { ProductHelper, ProductWithTotalPrice } from "@/helpers/productHelper";
 import { Product } from "@prisma/client";
 import { createContext, useContext, useMemo, useState } from "react";
 
-export interface CartProduct extends Product {
+export interface CartProduct extends ProductWithTotalPrice {
     quantity: number;
 }
 
@@ -96,10 +96,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
 
     const totalGeral = useMemo(() => {
-        return products.reduce((acc, product) => acc +
-            ((CalculatePriceDiscount(+product.basePrice, product.discountPercentage) * product.quantity))
-            , 0)
+
+        return products.reduce((acc, product) => acc + (ProductHelper.calculate(product).totalPrice * product.quantity), 0)
     }, [products])
+
 
     const totalDiscount = subTotal - totalGeral;
 

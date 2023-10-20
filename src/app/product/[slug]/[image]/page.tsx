@@ -1,5 +1,3 @@
-import { Badge } from "@/components/ui/badge"
-import { CalculatePriceDiscount } from "@/helpers/calculatePriceDiscount"
 import { FormatCurrency } from "@/helpers/formatCurrency"
 import { prismaClient } from "@/lib/prisma"
 import { cn } from "@/lib/utils"
@@ -15,6 +13,7 @@ import { ProductListHorizontal } from "@/components/product-list-horizontal"
 import { CatalogCategories } from "@/app/categories/components/catalogCategories"
 import { BannerFreeShopping } from "@/components/banner-free-shopping"
 import { BadgeDiscount } from "@/components/badge-discount"
+import { ProductHelper } from "@/helpers/productHelper"
 
 export default async function ProductPage({ params }: { params: { slug: string, image: number } }) {
 
@@ -30,6 +29,7 @@ export default async function ProductPage({ params }: { params: { slug: string, 
             description: true,
             categoryId: true,
             imageUrls: true,
+            tenantId: true,
             basePrice: true,
             discountPercentage: true,
             id: true,
@@ -102,7 +102,7 @@ export default async function ProductPage({ params }: { params: { slug: string, 
 
                     <hr className="my-5 border-0" />
 
-                    <ProductPrice basePrice={+product.basePrice} discountPercentage={product.discountPercentage} />
+                    <ProductPrice product={product} />
 
                     <hr className="my-10 border-0" />
 
@@ -154,33 +154,32 @@ export default async function ProductPage({ params }: { params: { slug: string, 
 
 interface ProductPriceProps {
 
-    discountPercentage: number;
-    basePrice: number;
+    product: Product
 
 }
 
-function ProductPrice({ basePrice, discountPercentage }: ProductPriceProps) {
+function ProductPrice({ product }: ProductPriceProps) {
 
     return (
 
         <div className="gap-2 flex flex-col">
-            {discountPercentage > 0 &&
+            {product.discountPercentage > 0 &&
                 <>
                     <div className="text-2xl relative font-bold flex flex-col gap-2  ">
                         <div className="flex gap-2">
-                            {FormatCurrency(CalculatePriceDiscount(+basePrice, discountPercentage))}
-                            <BadgeDiscount>{discountPercentage}</BadgeDiscount>
+                            {FormatCurrency(ProductHelper.calculate(product).totalPrice)}
+                            <BadgeDiscount>{product.discountPercentage}</BadgeDiscount>
                         </div>
 
                         <div className="text-base opacity-50 flex top-8 absolute font-extralight line-through">
-                            De: {FormatCurrency(+basePrice)}
+                            De: {FormatCurrency(+product.basePrice)}
                         </div>
                     </div>
 
                 </>
             }
-            {discountPercentage === 0 && <>
-                <span className="text-2xl font-bold ">{FormatCurrency(+basePrice)}</span></>
+            {product.discountPercentage === 0 && <>
+                <span className="text-2xl font-bold ">{FormatCurrency(+product.basePrice)}</span></>
             }
         </div>
 

@@ -42,6 +42,7 @@
         "@radix-ui/react-toast": "^1.1.5",
         "@radix-ui/react-toggle": "^1.0.3",
         "@radix-ui/react-tooltip": "^1.0.7",
+        "@stripe/stripe-js": "^2.1.9",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.0.0",
         "cmdk": "^0.2.0",
@@ -53,6 +54,7 @@
         "react-day-picker": "^8.9.0",
         "react-dom": "^18",
         "react-hook-form": "^7.47.0",
+        "stripe": "^14.1.0",
         "tailwind-merge": "^1.14.0",
         "tailwindcss-animate": "^1.0.7",
         "zod": "^3.22.4"
