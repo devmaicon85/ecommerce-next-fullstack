@@ -5,7 +5,7 @@ import { ProductHelper, ProductWithTotalPrice } from "@/helpers/productHelper";
 import { Product } from "@prisma/client";
 import { createContext, useContext, useMemo, useState } from "react";
 
-export interface CartProduct extends ProductWithTotalPrice {
+export interface CartProduct extends Product {
     quantity: number;
 }
 
