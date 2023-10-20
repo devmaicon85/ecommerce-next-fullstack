@@ -11,7 +11,7 @@ export async function CatalogCategories() {
 
     return (
 
-        <div className="container">
+        <div>
 
             <SectionTitle>
                 Categorias
