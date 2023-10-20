@@ -10,6 +10,7 @@ import { Logo } from "./logo";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Separator } from "./ui/separator";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
+import { Cart } from "./cart";
 
 
 
@@ -41,9 +42,17 @@ export function Header() {
 
 
                 <div className="flex items-center gap-4">
-                    <Button size="icon" variant="outline">
-                        <ShoppingCart />
-                    </Button>
+
+
+                    <SheetTrigger asChild id="cart" >
+                        <Button size="icon" variant="outline">
+                            <ShoppingCart />
+                        </Button>
+                    </SheetTrigger>
+
+                    <SheetContent side="right" className="gap-4 w-full flex flex-col">
+                        <Cart />
+                    </SheetContent>
 
 
                     {status === "unauthenticated" && <Button className="flex gap-1" onClick={() => signIn()} title="Fazer login"><User2Icon /> Login</Button>}

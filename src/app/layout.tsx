@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { AuthProvider } from "../providers/auth";
 import "./globals.css";
 import { CartProvider } from "@/providers/cart";
+import { Sheet } from "@/components/ui/sheet";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,13 +24,15 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className="flex h-screen flex-col">
           <AuthProvider>
-            <CartProvider>
-              <Header />
-              <main className=" flex-1 mt-20">
-                {children}
-              </main>
-              <Footer />
-            </CartProvider>
+            
+              <CartProvider>
+                <Header />
+                <main className=" flex-1 mt-20">
+                  {children}
+                </main>
+                <Footer />
+              </CartProvider>
+           
           </AuthProvider>
         </div>
       </body>

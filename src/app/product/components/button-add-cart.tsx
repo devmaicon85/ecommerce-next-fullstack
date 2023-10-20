@@ -1,37 +1,35 @@
 "use client"
 
+import { ButtonMinusPlus } from "@/components/button-minus-plus";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SheetTrigger } from "@/components/ui/sheet";
+import { useCartContext } from "@/providers/cart";
+import { Product } from "@prisma/client";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
 
 
 interface Props {
-    productId: string;
+    product: Product;
 }
-export function ButtonAddCart({ productId }: Props) {
+export function ButtonAddCart({ product }: Props) {
+
+    const { onAddCart } = useCartContext();
+
 
     const [quantity, setQuantity] = useState(1);
 
-    function handleQuantityMinus() {
-        if (quantity > 1) {
-            setQuantity(quantity - 1)
-        }
-    }
-
-    function handleQuantityPlus() {
-        setQuantity(quantity + 1)
-    }
-
     return (
         <div className="flex gap-4 justify-center flex-wrap sm:flex-nowrap">
-            <Button className="w-10 p-0" variant={"outline"} onClick={handleQuantityMinus}><Minus size={14} /></Button>
+            <ButtonMinusPlus quantity={quantity}
+                onMinusQuantity={() => setQuantity(quantity > 1 ? quantity - 1 : quantity)}
+                onPlusQuantity={() => setQuantity(quantity + 1)}
+            />
+            <SheetTrigger asChild id="cart">
+                <Button onClick={() => onAddCart({ ...product, quantity })} className="flex-1 p-5 text-sm font-bold uppercase overflow-hidden whitespace-nowrap text-ellipsis max-w-xs min-w-[200px]">Adicionar ao carrinho</Button>
+            </SheetTrigger>
 
-            <span className="w-10 flex justify-center items-center">{quantity}</span>
-
-            <Button className="w-10 p-0" variant={"outline"} onClick={handleQuantityPlus}><Plus size={14} /></Button>
-
-            <Button className="flex-1 p-5 text-sm font-bold uppercase overflow-hidden whitespace-nowrap text-ellipsis max-w-xs min-w-[200px]">Adicionar ao carrinho</Button>
         </div>
     )
 }

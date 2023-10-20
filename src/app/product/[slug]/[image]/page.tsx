@@ -28,6 +28,7 @@ export default async function ProductPage({ params }: { params: { slug: string, 
             name: true,
             slug: true,
             description: true,
+            categoryId: true,
             imageUrls: true,
             basePrice: true,
             discountPercentage: true,
@@ -111,7 +112,7 @@ export default async function ProductPage({ params }: { params: { slug: string, 
                             <BannerFreeShopping />
                         </div>
                         <div className="flex-1 flex justify-center lg:justify-end">
-                            <ButtonAddCart productId={product.id} />
+                            <ButtonAddCart product={product} />
                         </div>
                     </div>
 
