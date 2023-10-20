@@ -6,5 +6,7 @@ declare namespace NodeJs {
     NEXT_PUBLIC_URL_API: string;
     NEXTAUTH_URL: string;
     NEXTAUTH_SECRET: string;
+    NEXT_STRIPE_PUBLIC_KEY: string;
+    STRIPE_SECRET_KEY: string;
   }
 }
