@@ -7,9 +7,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        
         hostname: 'fsw-store.s3.sa-east-1.amazonaws.com',
+      },
+      {
+        hostname: 'res.cloudinary.com',
       },
     ],
   },

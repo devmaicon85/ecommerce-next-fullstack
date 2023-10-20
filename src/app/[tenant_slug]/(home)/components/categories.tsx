@@ -13,6 +13,7 @@ export async function Categories() {
 
 
     const categories = await prismaClient.category.findMany();
+   
 
     return (
 

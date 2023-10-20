@@ -38,7 +38,7 @@ export function Header() {
                     </SheetContent>
                 </Sheet>
 
-                <Logo />
+                {/* <Logo /> */}
 
 
                 <div className="flex items-center gap-4">
