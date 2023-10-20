@@ -1,7 +1,7 @@
 import { FormatCurrency } from "@/helpers/formatCurrency"
 import { prismaClient } from "@/lib/prisma"
 import { cn } from "@/lib/utils"
-import { ArrowDownIcon, Truck, TruckIcon } from "lucide-react"
+import { ArrowDownIcon, Home, Truck, TruckIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { ButtonAddCart } from "../../components/button-add-cart"
@@ -55,6 +55,7 @@ export default async function ProductPage({ params }: { params: { slug: string, 
 
     return (
         <div className="relative">
+
             <div className="flex flex-col  sticky top-0 -z-10">
                 <hr className="my-5 border-0" />
                 <div className="flex flex-col bg-accent w-full items-center justify-center">

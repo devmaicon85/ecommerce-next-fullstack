@@ -32,7 +32,7 @@ export function Header() {
                         {status === 'unauthenticated' && <Button variant="outline" className="w-full h-12 gap-2" onClick={() => signIn()}><LogInIcon /> Fazer Login</Button>}
 
                         <MenuButton href="/"><HomeIcon />Página Inicial</MenuButton>
-                        <MenuButton href="/categories/home"><PercentCircleIcon />Ofertas</MenuButton>
+                        <MenuButton href="/deals"><PercentCircleIcon />Ofertas</MenuButton>
                         <MenuButton href="/categories/home"><ListOrdered />Catálogo</MenuButton>
 
                     </SheetContent>

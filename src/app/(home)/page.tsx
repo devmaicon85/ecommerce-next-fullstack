@@ -9,7 +9,7 @@ export default async function HomePage() {
 
 
 
-    const delasProducts = await prismaClient.product.findMany({
+    const dealsProducts = await prismaClient.product.findMany({
         where: {
             discountPercentage: {
                 gt: 0
@@ -52,7 +52,7 @@ export default async function HomePage() {
             <hr className="my-5 border-0" />
 
             <SectionTitle>OFERTAS</SectionTitle>
-            <ProductListHorizontal products={delasProducts} />
+            <ProductListHorizontal products={dealsProducts} />
             
 
 

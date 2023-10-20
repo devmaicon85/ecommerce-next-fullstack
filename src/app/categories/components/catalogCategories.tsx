@@ -2,7 +2,7 @@ import { BadgeTitlePage } from "@/components/badge-title-page";
 import { CategoryCard } from "@/components/category-card";
 import { SectionTitle } from "@/components/section-title";
 import { prismaClient } from "@/lib/prisma";
-import { ShapesIcon } from "lucide-react";
+import { Home, ShapesIcon } from "lucide-react";
 import Link from "next/link";
 
 export async function CatalogCategories() {
@@ -13,9 +13,10 @@ export async function CatalogCategories() {
 
         <div>
 
-            <SectionTitle>
-                Categorias
-            </SectionTitle>
+            <BadgeTitlePage>
+                <Link href={"/"}><Home size={14}/></Link>/
+                <span>Catálogo</span>
+            </BadgeTitlePage>
 
 
             <hr className="my-5 border-0" />

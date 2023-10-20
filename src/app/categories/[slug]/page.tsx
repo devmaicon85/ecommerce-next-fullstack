@@ -3,6 +3,9 @@ import { ProductCard } from "@/components/product-card"
 import { categoryIcon } from "@/constants/category-icons"
 import { prismaClient } from "@/lib/prisma"
 import { CatalogCategories } from "../components/catalogCategories"
+import Link from "next/link"
+import { SectionTitle } from "@/components/section-title"
+import { Home } from "lucide-react"
 
 export default async function CategoryProducts({ params }: { params: { slug: string } }) {
 
@@ -23,9 +26,19 @@ export default async function CategoryProducts({ params }: { params: { slug: str
         <div className="container">
             <hr className="my-5 border-0" />
 
+
+            {!categoryProducts && <CatalogCategories />}
+
+
             {categoryProducts && (
                 <>
-                    <BadgeTitlePage>{categoryIcon[categoryProducts.slug as keyof typeof categoryIcon]}{categoryProducts.name}</BadgeTitlePage>
+                    <div className="flex items-center gap-2">
+                        <BadgeTitlePage>
+                            <Link href={"/"}><Home size={14} /></Link>/
+                            <Link href={"/categories/home"}>Catálogo</Link>/
+                            <span>{categoryProducts.name}</span>
+                        </BadgeTitlePage>
+                    </div>
                     <hr className="my-5 border-0" />
                     <div className="flex w-full gap-4 justify-center px-5 flex-wrap">
                         {categoryProducts.products.map((product) => (
@@ -37,7 +50,6 @@ export default async function CategoryProducts({ params }: { params: { slug: str
             )}
 
 
-            <CatalogCategories />
         </div>
     )
 }
