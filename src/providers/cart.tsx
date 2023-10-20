@@ -3,7 +3,7 @@
 import { Sheet } from "@/components/ui/sheet";
 import { ProductHelper, ProductWithTotalPrice } from "@/helpers/productHelper";
 import { Product } from "@prisma/client";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 export interface CartProduct extends Product {
     quantity: number;
@@ -38,7 +38,27 @@ const CartContext = createContext<ICartContext>({
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
+    const nameCartStorage = "@fullstack:cart"
+
+
+
     const [products, setProducts] = useState<CartProduct[]>([]);
+
+
+    useEffect(() => {
+        const getCartStorage = localStorage.getItem(nameCartStorage);
+        const initialCart = getCartStorage ? JSON.parse(getCartStorage) : [];
+
+        if(initialCart.length > 0) {
+            setProducts(initialCart);
+        }
+    }, [])
+
+
+    useEffect(() => {
+        localStorage.setItem(nameCartStorage, JSON.stringify(products));
+
+    }, [products])
 
     function handleMinusQuantity(product: CartProduct) {
         const productIndex = products.findIndex((p) => p.id === product.id);
