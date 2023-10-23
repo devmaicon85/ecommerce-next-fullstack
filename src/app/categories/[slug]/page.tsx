@@ -23,7 +23,7 @@ export default async function CategoryProducts({ params }: { params: { slug: str
     })
 
     return (
-        <div className="container">
+        <div className="xs:container mx-4 xs:mx-0">
             <hr className="my-5 border-0" />
 
 
@@ -40,7 +40,7 @@ export default async function CategoryProducts({ params }: { params: { slug: str
                         </BadgeTitlePage>
                     </div>
                     <hr className="my-5 border-0" />
-                    <div className="flex w-full gap-4 justify-center px-5 flex-wrap">
+                    <div className="grid grid-cols-1 xxs:grid-cols-2 xs:flex w-full gap-4 justify-center px-5 flex-wrap">
                         {categoryProducts.products.map((product) => (
                             <ProductCard key={product.id} product={product} />
                         ))}

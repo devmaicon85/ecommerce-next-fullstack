@@ -36,7 +36,7 @@ export default async function HomePage() {
 
 
     return (
-        <div className="container">
+        <div className="xs:container mx-4 xs:mx-0">
 
             <hr className="my-5 border-0" />
 

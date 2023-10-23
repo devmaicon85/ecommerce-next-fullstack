@@ -17,6 +17,10 @@ const config: Config = {
       },
     },
     extend: {
+      screens: {
+        xs: "480px",
+        xxs: "370px",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

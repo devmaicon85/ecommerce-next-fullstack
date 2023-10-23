@@ -47,7 +47,7 @@ export default async function HomePage({ params }: { params: { tenant_slug: stri
 
 
     return (
-        <div className="container">
+        <div className="xs:container mx-4 xs:mx-0">
 
             <hr className="my-5 border-0" />
             <div className='flex justify-center w-full'>

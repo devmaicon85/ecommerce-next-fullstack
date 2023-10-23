@@ -17,7 +17,7 @@ export default async function DealsPage() {
     })
 
     return (
-        <div className="md:container  px-5 ">
+        <div className="xs:container mx-4 xs:mx-0">
 
             <hr className="my-5 border-0" />
 
@@ -25,16 +25,16 @@ export default async function DealsPage() {
                 <>
 
                     <BadgeTitlePage>
-                            <Link href={"/"}><Home size={14} /></Link>/
-                            <span>OFERTAS</span>
-                        </BadgeTitlePage>
-                    
+                        <Link href={"/"}><Home size={14} /></Link>/
+                        <span>OFERTAS</span>
+                    </BadgeTitlePage>
+
                     <hr className="my-5 border-0" />
 
-                    <div className="flex flex-wrap w-full gap-4 justify-center">
-                        {dealsProducts.map((product) => (
-                            <ProductCard key={product.id} product={product} />
-                        ))}
+                    <div className="grid grid-cols-1  xxs:grid-cols-2 xs:flex flex-wrap w-full gap-4 justify-center items-center">
+                            {dealsProducts.map((product) => (
+                                <ProductCard key={product.id} product={product} />
+                            ))}
                     </div>
                     <hr className="my-14 border-0" />
                 </>

@@ -23,7 +23,7 @@ export async function CatalogCategories() {
 
 
             {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-y-3 gap-x-4"> */}
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="grid grid-cols-1 xxs:grid-cols-2 xs:flex flex-wrap gap-4 justify-center">
                 {categories.map((category) => (
                     <Link key={category.id} href={`/categories/${category.slug}`}>
                         <CategoryCard category={category} />
