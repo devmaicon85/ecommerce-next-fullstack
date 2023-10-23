@@ -3,6 +3,7 @@ import { SectionTitle } from '@/components/section-title';
 import { prismaClient } from '@/lib/prisma';
 import { ProductListHorizontal } from '../../components/product-list-horizontal';
 import { Categories } from './components/categories';
+import { Container } from '@/components/container';
 
 
 export default async function HomePage() {
@@ -36,10 +37,7 @@ export default async function HomePage() {
 
 
     return (
-        <div className="xs:container mx-4 xs:mx-0">
-
-            <hr className="my-5 border-0" />
-
+        <Container>
 
             <Banners />
 
@@ -80,6 +78,6 @@ export default async function HomePage() {
             <SectionTitle>MOUSES</SectionTitle>
             <ProductListHorizontal products={mousesProducts} />
 
-        </div>
+        </Container>
     );
 }

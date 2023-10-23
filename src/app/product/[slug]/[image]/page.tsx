@@ -14,6 +14,7 @@ import { CatalogCategories } from "@/app/categories/components/catalogCategories
 import { BannerFreeShopping } from "@/components/banner-free-shopping"
 import { BadgeDiscount } from "@/components/badge-discount"
 import { ProductHelper } from "@/helpers/productHelper"
+import { Container } from "@/components/container"
 
 export default async function ProductPage({ params }: { params: { slug: string, image: number } }) {
 
@@ -54,7 +55,7 @@ export default async function ProductPage({ params }: { params: { slug: string, 
     }
 
     return (
-        <div className="relative">
+        <div>
 
             <div className="flex flex-col  sticky top-0 -z-10">
                 <hr className="my-5 border-0" />

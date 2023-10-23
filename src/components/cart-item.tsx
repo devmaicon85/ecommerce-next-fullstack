@@ -21,7 +21,7 @@ export function CartItem({ product }: Props) {
 
     return (
 
-        <div className="flex  gap-4  ">
+        <div className="flex  gap-2  ">
 
             <div className="relative bg-accent rounded-lg h-24 w-24 min-h-[6rem] min-w-[6rem] flex justify-center items-center p-4 mb-4">
 
@@ -50,7 +50,7 @@ export function CartItem({ product }: Props) {
 
             </div>
 
-            <div className="w-full justify-end flex">
+            <div className="w-full  justify-end flex">
                 <Button onClick={() => onRemoveCart(product)} variant={"outline"} className="hover:bg-destructive" size="icon">
                     <Trash size={16} />
                 </Button>

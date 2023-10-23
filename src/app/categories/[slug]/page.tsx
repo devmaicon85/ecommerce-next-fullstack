@@ -6,6 +6,7 @@ import { CatalogCategories } from "../components/catalogCategories"
 import Link from "next/link"
 import { SectionTitle } from "@/components/section-title"
 import { Home } from "lucide-react"
+import { Container } from "@/components/container"
 
 export default async function CategoryProducts({ params }: { params: { slug: string } }) {
 
@@ -23,9 +24,7 @@ export default async function CategoryProducts({ params }: { params: { slug: str
     })
 
     return (
-        <div className="xs:container mx-4 xs:mx-0">
-            <hr className="my-5 border-0" />
-
+        <Container>
 
             {!categoryProducts && <CatalogCategories />}
 
@@ -50,6 +49,6 @@ export default async function CategoryProducts({ params }: { params: { slug: str
             )}
 
 
-        </div>
+        </Container>
     )
 }

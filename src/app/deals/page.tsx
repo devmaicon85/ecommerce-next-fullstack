@@ -1,4 +1,5 @@
 import { BadgeTitlePage } from "@/components/badge-title-page"
+import { Container } from "@/components/container"
 import { ProductCard } from "@/components/product-card"
 import { prismaClient } from "@/lib/prisma"
 import { Home } from "lucide-react"
@@ -17,9 +18,7 @@ export default async function DealsPage() {
     })
 
     return (
-        <div className="xs:container mx-4 xs:mx-0">
-
-            <hr className="my-5 border-0" />
+        <Container>
 
             {dealsProducts.length > 0 && (
                 <>
@@ -40,7 +39,7 @@ export default async function DealsPage() {
                 </>
             )}
 
-        </div>
+        </Container>
 
 
     )

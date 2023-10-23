@@ -4,6 +4,7 @@ import { prismaClient } from '@/lib/prisma';
 import { Categories } from './components/categories';
 import { ProductListHorizontal } from '@/components/product-list-horizontal';
 import Image from 'next/image';
+import { Container } from '@/components/container';
 
 
 export default async function HomePage({ params }: { params: { tenant_slug: string } }) {
@@ -47,9 +48,8 @@ export default async function HomePage({ params }: { params: { tenant_slug: stri
 
 
     return (
-        <div className="xs:container mx-4 xs:mx-0">
+        <Container>
 
-            <hr className="my-5 border-0" />
             <div className='flex justify-center w-full'>
                 <Image src={tenant.logoUrl} alt={tenant.name} width={200} height={200} className='rounded-full p-2 m-2' />
             </div>
@@ -96,6 +96,6 @@ export default async function HomePage({ params }: { params: { tenant_slug: stri
             <SectionTitle>MOUSES</SectionTitle>
             <ProductListHorizontal products={mousesProducts} />
 
-        </div>
+        </Container>
     );
 }
