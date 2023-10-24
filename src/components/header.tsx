@@ -3,7 +3,7 @@
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 
-import { HomeIcon, ListOrdered, LogInIcon, LogOut, MenuIcon, PercentCircleIcon, ShoppingCart, User2Icon } from "lucide-react";
+import { HomeIcon, ListOrdered, ListOrderedIcon, LogInIcon, LogOut, MenuIcon, PackageSearchIcon, PercentCircleIcon, ShoppingCart, User2Icon } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Logo } from "./logo";
@@ -85,6 +85,9 @@ export function Header() {
 
 
                                 <Button variant="outline" className="w-full h-12 gap-2" onClick={() => signOut()}><LogOut /> Sair</Button>
+
+                                <MenuButton href="/myorders"><PackageSearchIcon />Meus Pedidos</MenuButton>
+
                             </SheetContent>
                         </Sheet>
 
