@@ -31,17 +31,18 @@ model Category {
 }
 
 model Product {
-    id                 String   @id @default(uuid())
+    id                 String       @id @default(uuid())
     name               String
     slug               String
     description        String
-    basePrice          Decimal  @db.Decimal(8, 2)
+    basePrice          Decimal      @db.Decimal(8, 2)
     imageUrls          String[]
-    discountPercentage Int      @default(0)
-    Category           Category @relation(fields: [categoryId], references: [id])
+    discountPercentage Int          @default(0)
+    Category           Category     @relation(fields: [categoryId], references: [id])
     categoryId         String
-    Tenant             Tenant   @relation(fields: [tenantId], references: [id])
+    Tenant             Tenant       @relation(fields: [tenantId], references: [id])
     tenantId           String
+    OrderItems         OrderItems[]
 }
 
 model Account {
@@ -63,6 +64,32 @@ model Account {
     @@unique([provider, providerAccountId])
 }
 
+enum OrderStatus {
+    WAITING_FOR_PAYMENT
+    PAYMENT_CONFIRMED
+}
+
+model Order {
+    id         String       @id @default(uuid())
+    userId     String
+    user       User         @relation(fields: [userId], references: [id])
+    status     OrderStatus  @default(WAITING_FOR_PAYMENT)
+    createdAt  DateTime     @default(now())
+    updatedAt  DateTime     @updatedAt()
+    OrderItems OrderItems[]
+}
+
+model OrderItems {
+    id                 String  @id @default(uuid())
+    productId          String
+    product            Product @relation(fields: [productId], references: [id])
+    quantity           Decimal
+    basePrice          Decimal @db.Decimal(8, 2)
+    discountPercentage Int     @default(0)
+    orderId            String
+    order              Order   @relation(fields: [orderId], references: [id])
+}
+
 model Session {
     id           String   @id @default(cuid())
     sessionToken String   @unique
@@ -79,6 +106,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    Order         Order[]
 }
 
 model VerificationToken {

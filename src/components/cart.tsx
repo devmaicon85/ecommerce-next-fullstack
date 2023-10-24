@@ -10,6 +10,8 @@ import { createCheckout } from "@/actions/checkout";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import createOrder from "@/actions/order";
+import { signIn, useSession } from "next-auth/react";
 
 export function Cart() {
 
@@ -19,9 +21,19 @@ export function Cart() {
 
     const { push } = useRouter();
 
+    const { data } = useSession();
+
+
     async function handleFinishPurchaseClick() {
 
         setLoading(true);
+
+        if (!data || !data?.user) {
+            return signIn();
+        }
+
+        await createOrder(products, data.user.id);
+
         const checkout = await createCheckout(products);
 
         const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
@@ -30,7 +42,7 @@ export function Cart() {
             sessionId: checkout.id
         })
 
-        
+
         setLoading(false);
 
     }

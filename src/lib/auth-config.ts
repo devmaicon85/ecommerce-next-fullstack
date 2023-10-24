@@ -14,7 +14,11 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
-        domain: { label: 'Dominio', type: 'text', placeholder: 'ex: @gmail.com' },
+        domain: {
+          label: 'Dominio',
+          type: 'text',
+          placeholder: 'ex: @gmail.com',
+        },
         email: { label: 'E-mail', type: 'text' },
         password: { label: 'Senha', type: 'password' },
       },
@@ -31,4 +35,25 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    // jwt({ token, account, user }) {
+    //   if (account) {
+    //     token.accessToken = account.access_token
+    //     token.id = user?.id
+    //   }
+    //   return token
+    // },
+    session({ session, token, user }) {
+      // I skipped the line below coz it gave me a TypeError
+      // session.accessToken = token.accessToken;
+      // session.user.id = token.id;
+      session.user = { ...session.user, id: user.id } as {
+        id: string;
+        name: string;
+        email: string;
+      };
+
+      return session;
+    },
+  },
 };

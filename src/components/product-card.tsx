@@ -17,7 +17,7 @@ export function ProductCard({ product }: Props) {
 
     return (
 
-        <div className="flex flex-col cursor-pointer justify-center items-center border hover:scale-105 transition-all duration-150 ">
+        <div className="flex flex-col cursor-pointer justify-center items-center hover:scale-105 transition-all duration-150 ">
 
             <Link href={`/product/${product.slug}/0`}>
                 <div className="relative bg-accent rounded-lg h-44 w-40 flex justify-center items-center p-4 mb-4">
