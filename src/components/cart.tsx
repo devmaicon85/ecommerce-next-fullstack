@@ -15,7 +15,7 @@ import { signIn, useSession } from "next-auth/react";
 
 export function Cart() {
 
-    const { products, cartBasePrice, cartShoppingValue, cartTotalDiscount, cartTotalPrice } = useCartContext();
+    const { products, cartBasePrice, cartShoppingValue, cartTotalDiscount, cartTotalPrice, onResetCart } = useCartContext();
 
     const [loading, setLoading] = useState(false);
 
@@ -34,14 +34,16 @@ export function Cart() {
 
         const order = await createOrder(products, data.user.id);
 
-        const checkout = await createCheckout(products, order.id);
+        if (order.id) {
+            onResetCart();
+            const checkout = await createCheckout(products, order.id);
 
-        const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
+            const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
-        stripe?.redirectToCheckout({
-            sessionId: checkout.id
-        })
-
+            stripe?.redirectToCheckout({
+                sessionId: checkout.id
+            })
+        }
 
         setLoading(false);
 

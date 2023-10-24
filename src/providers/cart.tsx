@@ -19,6 +19,7 @@ interface ICartContext {
     onMinusQuantity: (product: CartProduct) => void;
     onPlusQuantity: (product: CartProduct) => void;
     onRemoveCart: (product: CartProduct) => void;
+    onResetCart:()=>void;
 }
 
 
@@ -32,6 +33,7 @@ const CartContext = createContext<ICartContext>({
     onMinusQuantity: () => { },
     onPlusQuantity: () => { },
     onRemoveCart: () => { },
+    onResetCart: () => { },
 })
 
 
@@ -97,6 +99,10 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         }
     }
 
+    function handleResetCart() {
+        setProducts([]);
+    }
+
     function handleRemoveCart(product: CartProduct) {
         const productIndex = products.findIndex((p) => p.id === product.id);
 
@@ -134,6 +140,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
             onMinusQuantity: (product: CartProduct) => handleMinusQuantity(product),
             onPlusQuantity: (product: CartProduct) => handlePlusQuantity(product),
             onRemoveCart: (product: CartProduct) => handleRemoveCart(product),
+            onResetCart:handleResetCart,
         }}>
             <Sheet key={"cart"} >
                 {children}
