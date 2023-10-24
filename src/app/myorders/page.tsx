@@ -11,6 +11,7 @@ import { getServerSession } from "next-auth"
 import Image from "next/image";
 import Link from "next/link";
 import { getOrderStatus } from "./helpers/status";
+import format from "date-fns/format/index.js";
 
 export default async function MyOrders() {
 
@@ -78,9 +79,7 @@ export default async function MyOrders() {
                                     <div className="flex flex-col">
                                         <div className="font-bold  text-left ">DATA PEDIDO:</div>
                                         <div className="">
-                                            <span className="no-underline">{order.createdAt.toLocaleString('pt-BR', { dateStyle: 'short' })}</span>
-                                            {" "}
-                                            <span>{order.createdAt.toLocaleString('pt-BR', { timeStyle: 'short' })}</span>
+                                            <span>{format(order.createdAt, 'dd/MM/yyyy HH:mm')}</span>
                                         </div>
                                     </div>
                                     <div className="flex flex-col">
