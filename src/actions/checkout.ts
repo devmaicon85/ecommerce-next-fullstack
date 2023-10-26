@@ -6,7 +6,7 @@ import { CartProduct } from '@/providers/cart';
 import Stripe from 'stripe';
 
 export async function createCheckout(product: CartProduct[], orderId: string) {
-  const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
+  const stripe = new Stripe(env.STRIPE_SECRET_KEY!, {
     apiVersion: '2023-10-16',
     typescript: true,
   });
