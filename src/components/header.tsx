@@ -20,7 +20,7 @@ export function Header() {
 
     const { data, status } = useSession();
 
-    const {cartTotalQuantity} = useCartContext();
+    const { cartTotalQuantity } = useCartContext();
 
     return (
         <header className="fixed z-50 w-full">
@@ -62,44 +62,39 @@ export function Header() {
                     </SheetContent>
 
 
-                    {status === "unauthenticated" && <Button className="flex gap-1" onClick={() => signIn()} title="Fazer login"><User2Icon /> Login</Button>}
 
-                    {status === 'authenticated' &&
-                        <Sheet>
-                            <SheetTrigger asChild>
-                                <Avatar className="cursor-pointer">
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <Avatar className="cursor-pointer select-none">
 
-                                    <AvatarFallback>{data?.user?.name && data.user.name[0].toLocaleUpperCase()}</AvatarFallback>
-                                    {data?.user?.image && <AvatarImage src={data?.user?.image} alt={data?.user?.name ?? ""} />}
+                                <AvatarFallback>{data?.user?.name && data.user.name[0].toLocaleUpperCase()}</AvatarFallback>
+                                {data?.user?.image && <AvatarImage src={data?.user?.image} alt={data?.user?.name ?? ""} />}
 
-                                </Avatar>
-                            </SheetTrigger>
-                            <SheetContent side="right" className="gap-2 flex flex-col">
-                                <SheetHeader className="text-left text-lg font-semibold">
+                            </Avatar>
+                        </SheetTrigger>
+                        <SheetContent side="right" className="gap-2 flex flex-col ">
+                            <SheetHeader className="text-left text-lg font-semibold">
 
-                                    <div className="flex gap-4 items-center">
-                                        <Avatar>
-                                            {data?.user?.image && <AvatarImage src={data?.user?.image} alt={data?.user?.name ?? ""} />}
-                                        </Avatar>
+                                <div className="flex gap-4 items-center">
+                                    <Avatar>
+                                        {data?.user?.image && <AvatarImage src={data?.user?.image} alt={data?.user?.name ?? ""} />}
+                                    </Avatar>
 
 
-                                        <div className="flex flex-col">
-                                            <SheetHeader className="text-left text-lg font-semibold">{data?.user?.name}</SheetHeader>
-                                            <SheetHeader className="text-left text-sm opacity-75">{data?.user?.email}</SheetHeader>
-                                        </div>
+                                    <div className="flex flex-col">
+                                        <SheetHeader className="text-left text-lg font-semibold">{data?.user?.name}</SheetHeader>
+                                        <SheetHeader className="text-left text-sm opacity-75">{data?.user?.email}</SheetHeader>
                                     </div>
-                                </SheetHeader>
+                                </div>
+                            </SheetHeader>
 
 
-                                <Button variant="outline" className="w-full h-12 gap-2" onClick={() => signOut()}><LogOut /> Sair</Button>
+                            <Button variant="outline" className="w-full h-12 gap-2" onClick={() => signOut()}><LogOut /> Sair</Button>
 
-                                <MenuButton href="/myorders"><PackageSearchIcon />Meus Pedidos</MenuButton>
+                            <MenuButton href="/myorders"><PackageSearchIcon />Meus Pedidos</MenuButton>
 
-                            </SheetContent>
-                        </Sheet>
-
-                    }
-
+                        </SheetContent>
+                    </Sheet>
 
                 </div>
             </Card>

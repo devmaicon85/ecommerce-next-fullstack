@@ -20,6 +20,8 @@ export default async function ProductPage({ params }: { params: { slug: string, 
 
 
 
+    await new Promise((resolve) => setTimeout(resolve, 3000))
+
     const product = await prismaClient.product.findFirst({
         where: {
             slug: params.slug
