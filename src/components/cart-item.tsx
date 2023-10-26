@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Badge } from "./ui/badge";
 import { BadgeDiscount } from "./badge-discount";
 import { ButtonMinusPlus } from "./button-minus-plus";
-import { CartProduct, useCartContext } from "@/providers/cart";
+import { CartProduct, useCartContext } from "@/providers/cart-context";
 import { Button } from "./ui/button";
 import { ProductHelper } from "@/helpers/productHelper";
 

@@ -1,7 +1,7 @@
 'use server';
 
 import { prismaClient } from '@/lib/prisma';
-import { CartProduct } from '@/providers/cart';
+import { CartProduct } from '@/providers/cart-context';
 import { OrderItems, Prisma, User } from '@prisma/client';
 
 export default async function createOrder(

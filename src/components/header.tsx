@@ -12,7 +12,7 @@ import { Separator } from "./ui/separator";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
 import { Cart } from "./cart";
 import { Badge } from "./ui/badge";
-import { useCartContext } from "@/providers/cart";
+import { useCartContext } from "@/providers/cart-context";
 
 
 

@@ -1,6 +1,6 @@
 import { Minus, Plus } from "lucide-react";
 import { Button } from "./ui/button";
-import { useCartContext } from "@/providers/cart";
+import { useCartContext } from "@/providers/cart-context";
 
 
 interface Props {

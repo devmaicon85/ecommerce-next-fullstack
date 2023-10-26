@@ -25,18 +25,18 @@ interface ICartContext {
 
 
 const CartContext = createContext<ICartContext>({
-    products: [],
-    cartTotalQuantity: 0,
-    cartTotalPrice: 0,
-    cartBasePrice: 0,
-    cartShoppingValue: 0,
-    cartTotalDiscount: 0,
-    onAddCart: () => { },
-    onMinusQuantity: () => { },
-    onPlusQuantity: () => { },
-    onRemoveCart: () => { },
-    onResetCart: () => { },
-})
+    // products: [],
+    // cartTotalQuantity: 0,
+    // cartTotalPrice: 0,
+    // cartBasePrice: 0,
+    // cartShoppingValue: 0,
+    // cartTotalDiscount: 0,
+    // onAddCart: () => { },
+    // onMinusQuantity: () => { },
+    // onPlusQuantity: () => { },
+    // onRemoveCart: () => { },
+    // onResetCart: () => { },
+} as ICartContext);
 
 
 

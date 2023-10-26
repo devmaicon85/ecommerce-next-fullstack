@@ -23,23 +23,39 @@ type ProductItem = Product & {
         products: Product[];
     }
 }
+
+interface Params {
+    slug: string;
+    image: number;
+}
+
+// export function generateStaticParams(){
+//     // return[{slug:'...'}]
+   
+//     // const response = await fetchAPI("/products....");
+//     // const products:Product[] = await response.json();
+
+//     // return products.map((product)=>{
+//     //     return { slug: product.slug}
+//     // })
+// }
+
 async function getProduct(slug: string): Promise<ProductItem> {
     const response = await fetchAPI(`/product/${slug}`, { next: { tags: ["product"] } });
     return await response.json();
 }
 
 
-export async function generateMetadata({ params }: { params: { slug: string, image: number } }): Promise<Metadata> {
-
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
     const product = await getProduct(params.slug);
     return {
         title: product.name,
+        description: product.description,
     }
-
 };
 
 
-export default async function ProductPage({ params }: { params: { slug: string, image: number } }) {
+export default async function ProductPage({ params }: { params: Params }) {
 
     const product = await getProduct(params.slug)
     const imageIndex = params.image || 0;

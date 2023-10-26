@@ -2,7 +2,7 @@
 
 import { env } from '@/env';
 import { ProductHelper } from '@/helpers/productHelper';
-import { CartProduct } from '@/providers/cart';
+import { CartProduct } from '@/providers/cart-context';
 import Stripe from 'stripe';
 
 export async function createCheckout(product: CartProduct[], orderId: string) {

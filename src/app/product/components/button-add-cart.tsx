@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SheetTrigger } from "@/components/ui/sheet";
 import { ProductHelper } from "@/helpers/productHelper";
-import { useCartContext } from "@/providers/cart";
+import { useCartContext } from "@/providers/cart-context";
 import { Product } from "@prisma/client";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";

@@ -1,6 +1,6 @@
 import { Loader2, ShoppingCart, ShoppingCartIcon } from "lucide-react";
 import { BadgeTitlePage } from "./badge-title-page";
-import { useCartContext } from "@/providers/cart";
+import { useCartContext } from "@/providers/cart-context";
 import { CartItem } from "./cart-item";
 import { SectionTitle } from "./section-title";
 import { FormatCurrency } from "@/helpers/formatCurrency";
