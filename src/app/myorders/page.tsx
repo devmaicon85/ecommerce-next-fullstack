@@ -71,7 +71,7 @@ export default async function MyOrders() {
 
 
                 {orders.map(order => (
-                    <Accordion type="single"  collapsible key={order.id} className="max-w-xl mx-auto p-2 m-2" >
+                    <Accordion type="single" defaultValue={order.id}  collapsible key={order.id} className="max-w-xl mx-auto p-2 m-2" >
                         <AccordionItem value={order.id}>
                             <AccordionTrigger>
 
