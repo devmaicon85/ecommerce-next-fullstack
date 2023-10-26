@@ -24,7 +24,6 @@ type ProductItem = Product & {
     }
 }
 async function getProduct(slug: string): Promise<ProductItem> {
-    await new Promise((resolve) => setTimeout(resolve, 3000))
     const response = await fetchAPI(`/product/${slug}`, { next: { tags: ["product"] } });
     return await response.json();
 }
