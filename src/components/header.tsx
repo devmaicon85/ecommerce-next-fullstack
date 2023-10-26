@@ -11,12 +11,16 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Separator } from "./ui/separator";
 import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
 import { Cart } from "./cart";
+import { Badge } from "./ui/badge";
+import { useCartContext } from "@/providers/cart";
 
 
 
 export function Header() {
 
     const { data, status } = useSession();
+
+    const {cartTotalQuantity} = useCartContext();
 
     return (
         <header className="fixed z-50 w-full">
@@ -44,9 +48,12 @@ export function Header() {
                 <div className="flex items-center gap-4">
 
 
-                    <SheetTrigger asChild id="cart" >
-                        <Button size="icon" variant="outline">
-                            <ShoppingCart />
+                    <SheetTrigger asChild id="cart" className="flex w-16 relative" >
+                        <Button size="icon" variant="outline" className="">
+                            <ShoppingCart size={20} />
+                            <Badge className=" absolute -top-2 -right-1 text-xs">
+                                {cartTotalQuantity}
+                            </Badge>
                         </Button>
                     </SheetTrigger>
 

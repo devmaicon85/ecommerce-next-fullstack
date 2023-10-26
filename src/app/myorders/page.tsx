@@ -18,7 +18,7 @@ export default async function MyOrders() {
     const session = await getServerSession(authOptions);
 
 
-    if (!session) {
+    if (!session || !session.user) {
         return <Container>Você precisa estar logado</Container>
     }
 

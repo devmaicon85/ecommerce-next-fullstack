@@ -11,6 +11,7 @@ export interface CartProduct extends Product {
 
 interface ICartContext {
     products: CartProduct[];
+    cartTotalQuantity: number;
     cartTotalPrice: number;
     cartBasePrice: number;
     cartTotalDiscount: number;
@@ -25,6 +26,7 @@ interface ICartContext {
 
 const CartContext = createContext<ICartContext>({
     products: [],
+    cartTotalQuantity: 0,
     cartTotalPrice: 0,
     cartBasePrice: 0,
     cartShoppingValue: 0,
@@ -133,6 +135,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         <CartContext.Provider value={{
             products,
             cartTotalPrice: totalGeral,
+            cartTotalQuantity: products.map(p => p.quantity).reduce((a, b) => a + b, 0),
             cartBasePrice: subTotal,
             cartShoppingValue: 0,
             cartTotalDiscount: totalDiscount,
