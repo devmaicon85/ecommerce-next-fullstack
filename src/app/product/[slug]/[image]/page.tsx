@@ -5,7 +5,7 @@ import { ArrowDownIcon, Home, Truck, TruckIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { ButtonAddCart } from "../../components/button-add-cart"
-import { Product } from "@prisma/client"
+import { Category, Product } from "@prisma/client"
 import { BadgeTitlePage } from "@/components/badge-title-page"
 import { ProductCard } from "@/components/product-card"
 import { SectionTitle } from "@/components/section-title"
@@ -15,46 +15,42 @@ import { BannerFreeShopping } from "@/components/banner-free-shopping"
 import { BadgeDiscount } from "@/components/badge-discount"
 import { ProductHelper } from "@/helpers/productHelper"
 import { Container } from "@/components/container"
+import { Metadata } from "next"
+import { fetchAPI } from "@/lib/fetch-api"
+
+type ProductItem = Product & {
+    Category: Category & {
+        products: Product[];
+    }
+}
+async function getProduct(slug: string): Promise<ProductItem> {
+    await new Promise((resolve) => setTimeout(resolve, 3000))
+    const response = await fetchAPI(`/product/${slug}`, { next: { tags: ["product"] } });
+    return await response.json();
+}
+
+
+export async function generateMetadata({ params }: { params: { slug: string, image: number } }): Promise<Metadata> {
+
+    const product = await getProduct(params.slug);
+    return {
+        title: product.name,
+    }
+
+};
+
 
 export default async function ProductPage({ params }: { params: { slug: string, image: number } }) {
 
+    const product = await getProduct(params.slug)
+    const imageIndex = params.image || 0;
 
-
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-
-    const product = await prismaClient.product.findFirst({
-        where: {
-            slug: params.slug
-        },
-        select: {
-            name: true,
-            slug: true,
-            description: true,
-            categoryId: true,
-            imageUrls: true,
-            tenantId: true,
-            basePrice: true,
-            discountPercentage: true,
-            id: true,
-            Category: {
-                include: {
-                    products: {
-                        where: {
-                            slug: {
-                                not: params.slug
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-    })
 
 
     if (!product) {
         return <div>Produto não encontrado</div>
     }
+
 
     return (
         <div>
@@ -63,7 +59,7 @@ export default async function ProductPage({ params }: { params: { slug: string, 
                 <hr className="my-5 border-0" />
                 <div className="flex flex-col bg-accent w-full items-center justify-center">
                     <div className=" p-5 flex justify-center items-center min-w-[300px] min-h-[300px] max-w-[300px] max-h-[300px] ">
-                        <Image src={product.imageUrls[params.image]} alt={product.name} width={0} height={0} sizes="300px" className="w-auto h-auto" />
+                        <Image src={product.imageUrls[imageIndex]} alt={product.name} width={0} height={0} sizes="300px" className="w-auto h-auto" />
                     </div>
                 </div>
             </div >

@@ -10,6 +10,10 @@ import { Container } from '@/components/container';
 export default async function HomePage({ params }: { params: { tenant_slug: string } }) {
 
 
+    if(params.tenant_slug === undefined){
+        return null
+    }
+    
     const tenant = await prismaClient.tenant.findFirst({
         where: {
             slug: params.tenant_slug

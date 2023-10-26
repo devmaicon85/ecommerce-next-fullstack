@@ -12,6 +12,7 @@ import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import createOrder from "@/actions/order";
 import { signIn, useSession } from "next-auth/react";
+import { env } from "@/env";
 
 export function Cart() {
 
@@ -38,7 +39,7 @@ export function Cart() {
             onResetCart();
             const checkout = await createCheckout(products, order.id);
 
-            const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
+            const stripe = await loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
 
             stripe?.redirectToCheckout({
                 sessionId: checkout.id
