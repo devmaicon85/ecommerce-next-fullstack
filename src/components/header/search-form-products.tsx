@@ -66,7 +66,7 @@ export function SearchProducts() {
                 </DialogContent>
             </Dialog>
             <form onSubmit={handleSubmit} className="relative items-center gap-2 hidden sm:flex" >
-                <Search className="w-5 h-5 opacity-50 absolute left-2 cursor-pointer" />
+                <Search className="w-5 h-5 opacity-50 absolute left-2 " />
                 <Input
                     defaultValue={search ?? ""}
                     placeholder="Buscar produtos..."
