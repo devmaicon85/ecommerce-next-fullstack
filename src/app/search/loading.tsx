@@ -23,7 +23,7 @@ export default function SearchLoading() {
             <div className="flex flex-wrap gap-6">
                 
                 {Array.from({length:14}).map((_, index) => (
-                    <Skeleton key={index} className="rounded-lg h-44 w-40"/>
+                    <Skeleton key={index} className="rounded-lg h-44 w-40 bg-accent"/>
                 ))}
                 
             </div>

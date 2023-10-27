@@ -41,7 +41,7 @@ export function SearchProducts() {
 
     return (
         <div className="relative flex items-center">
-            <Dialog open={isOpen}>
+            <Dialog open={isOpen} onOpenChange={setIsOpen} >
                 <DialogTrigger asChild>
                     <Search className="w-5 h-5 opacity-50 absolute left-2 cursor-pointer" onClick={() => setIsOpen(true)} />
                 </DialogTrigger>
