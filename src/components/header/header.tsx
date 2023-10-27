@@ -43,7 +43,7 @@ export async function Header() {
 
                 <div className="w-full flex gap-4 items-center">
                     <Logo />
-                    <span className="hidden xs:block"><SearchProducts /></span>
+                    <SearchProducts />
                 </div>
 
 
@@ -106,7 +106,9 @@ export async function Header() {
                 </div>
             </Card>
 
-            <Separator></Separator>
+            <Separator/>
+
+
 
         </header >
     );
