@@ -18,98 +18,98 @@ import { SearchProducts } from "./search-form-products";
 
 
 
-export async function Header() {
+export async function Header({ children }: { children: React.ReactNode }) {
 
 
     const session = await getServerSession(authOptions);
 
 
     return (
-        <header className="fixed z-50 w-full">
-            <Card className="flex justify-between items-center gap-4 rounded-none p-6">
-                <Sheet>
-                    <SheetTrigger asChild>
-                        <Button size="icon" variant="outline">
-                            <MenuIcon />
-                        </Button>
-                    </SheetTrigger>
-                    <SheetContent side="left" className="gap-4 flex flex-col">
-                        <SheetHeader className="text-left text-lg font-semibold">Menu</SheetHeader>
-                        <MenuButton href="/"><HomeIcon />Página Inicial</MenuButton>
-                        <MenuButton href="/deals"><PercentCircleIcon />Ofertas</MenuButton>
-                        <MenuButton href="/categories/home"><ListOrdered />Catálogo</MenuButton>
-                    </SheetContent>
-                </Sheet>
+        <header className="w-full">
+            <div className="flex flex-col  sticky top-0 z-10 ">
+                <Card className="flex  justify-between items-center gap-4 rounded-none p-6">
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <Button size="icon" variant="outline">
+                                <MenuIcon />
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent side="left" className="gap-4 flex flex-col">
+                            <SheetHeader className="text-left text-lg font-semibold">Menu</SheetHeader>
+                            <MenuButton href="/"><HomeIcon />Página Inicial</MenuButton>
+                            <MenuButton href="/deals"><PercentCircleIcon />Ofertas</MenuButton>
+                            <MenuButton href="/categories/home"><ListOrdered />Catálogo</MenuButton>
+                        </SheetContent>
+                    </Sheet>
 
-                <div className="w-full flex gap-4 items-center">
-                    <Logo />
-                    <SearchProducts />
-                </div>
-
-
-                <div className="flex items-center gap-4">
+                    <div className="w-full flex gap-4 items-center">
+                        <Logo />
+                        <SearchProducts />
+                    </div>
 
 
-                    <SheetTrigger asChild id="cart" className="flex w-16 relative" >
-                        <Button size="icon" variant="outline" className="">
-                            <ShoppingCart size={20} />
-                            <Badge className=" absolute -top-3 -right-3 text-xs">
-                                <CartQuantity />
-                            </Badge>
-                        </Button>
-                    </SheetTrigger>
-
-                    <SheetContent side="right" className="gap-4 w-full flex flex-col">
-                        <Cart />
-                    </SheetContent>
+                    <div className="flex items-center gap-4">
 
 
-                    {(!session) && <ButtonLogin />}
+                        <SheetTrigger asChild id="cart" className="flex w-16 relative" >
+                            <Button size="icon" variant="outline" className="">
+                                <ShoppingCart size={20} />
+                                <Badge className=" absolute -top-3 -right-3 text-xs">
+                                    <CartQuantity />
+                                </Badge>
+                            </Button>
+                        </SheetTrigger>
 
-                    {session &&
-                        <Sheet>
-                            <SheetTrigger asChild>
-                                <Avatar className="cursor-pointer">
-
-                                    <AvatarFallback>{session?.user?.name && session.user.name[0].toLocaleUpperCase()}</AvatarFallback>
-                                    {session?.user?.image && <AvatarImage src={session?.user?.image} alt={session?.user?.name ?? ""} />}
-
-                                </Avatar>
-                            </SheetTrigger>
-                            <SheetContent side="right" className="gap-2 flex flex-col ">
-                                <SheetHeader className="text-left text-lg font-semibold">
-
-                                    <div className="flex gap-4 items-center">
-                                        <Avatar>
-                                            {session?.user?.image && <AvatarImage src={session?.user?.image} alt={session?.user?.name ?? ""} />}
-                                        </Avatar>
+                        <SheetContent side="right" className="gap-4 w-full flex flex-col">
+                            <Cart />
+                        </SheetContent>
 
 
-                                        <div className="flex flex-col">
-                                            <SheetHeader className="text-left text-lg font-semibold">{session?.user?.name}</SheetHeader>
-                                            <SheetHeader className="text-left text-sm opacity-75">{session?.user?.email}</SheetHeader>
+                        {(!session) && <ButtonLogin />}
+
+                        {session &&
+                            <Sheet>
+                                <SheetTrigger asChild>
+                                    <Avatar className="cursor-pointer">
+
+                                        <AvatarFallback>{session?.user?.name && session.user.name[0].toLocaleUpperCase()}</AvatarFallback>
+                                        {session?.user?.image && <AvatarImage src={session?.user?.image} alt={session?.user?.name ?? ""} />}
+
+                                    </Avatar>
+                                </SheetTrigger>
+                                <SheetContent side="right" className="gap-2 flex flex-col ">
+                                    <SheetHeader className="text-left text-lg font-semibold">
+
+                                        <div className="flex gap-4 items-center">
+                                            <Avatar>
+                                                {session?.user?.image && <AvatarImage src={session?.user?.image} alt={session?.user?.name ?? ""} />}
+                                            </Avatar>
+
+
+                                            <div className="flex flex-col">
+                                                <SheetHeader className="text-left text-lg font-semibold">{session?.user?.name}</SheetHeader>
+                                                <SheetHeader className="text-left text-sm opacity-75">{session?.user?.email}</SheetHeader>
+                                            </div>
                                         </div>
-                                    </div>
-                                </SheetHeader>
+                                    </SheetHeader>
 
 
-                                <ButtonLogoff />
+                                    <ButtonLogoff />
 
-                                <MenuButton href="/myorders"><PackageSearchIcon />Meus Pedidos</MenuButton>
+                                    <MenuButton href="/myorders"><PackageSearchIcon />Meus Pedidos</MenuButton>
 
-                            </SheetContent>
-                        </Sheet>
+                                </SheetContent>
+                            </Sheet>
 
-                    }
-
-
-                </div>
-            </Card>
-
-            <Separator/>
+                        }
 
 
+                    </div>
+                </Card>
+                <Separator />
+            </div>
 
+            <div className="">{children}</div>
         </header >
     );
 }

@@ -36,6 +36,12 @@
   }
 }
 
+.main-container {
+  overflow-y: scroll;
+  height: 100vh;
+  padding-right: 20px; /* Espaçamento para compensar a largura da barra de rolagem */
+}
+
 @layer base {
   * {
     @apply border-border;

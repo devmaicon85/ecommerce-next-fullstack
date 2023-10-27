@@ -24,15 +24,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>
-        <div className="flex h-screen flex-col">
+      <body className={`${inter.className} `}>
+        <div className="flex h-screen flex-col overflow-y-scroll  pr-5">
           <AuthProvider>
 
             <CartProvider>
-              <Header />
-              <main className=" flex-1 mt-20">
-                {children}
-              </main>
+              <Header>
+                <main>
+                  {children}
+                </main>
+              </Header>
               <Footer />
             </CartProvider>
 
