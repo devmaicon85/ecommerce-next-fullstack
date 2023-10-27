@@ -1,11 +1,13 @@
+"use client"
+
 import { Loader2, ShoppingCart, ShoppingCartIcon } from "lucide-react";
-import { BadgeTitlePage } from "./badge-title-page";
+import { BadgeTitlePage } from "../badge-title-page";
 import { useCartContext } from "@/providers/cart-context";
 import { CartItem } from "./cart-item";
-import { SectionTitle } from "./section-title";
+import { SectionTitle } from "../section-title";
 import { FormatCurrency } from "@/helpers/formatCurrency";
-import { ScrollArea } from "./ui/scroll-area";
-import { Button } from "./ui/button";
+import { ScrollArea } from "../ui/scroll-area";
+import { Button } from "../ui/button";
 import { createCheckout } from "@/actions/checkout";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

@@ -1,30 +1,32 @@
-"use client"
+import { Button } from "../ui/button";
+import { Card } from "../ui/card";
 
-import { Button } from "./ui/button";
-import { Card } from "./ui/card";
-
-import { HomeIcon, ListOrdered, ListOrderedIcon, LogInIcon, LogOut, MenuIcon, PackageSearchIcon, PercentCircleIcon, ShoppingCart, User2Icon } from "lucide-react";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { HomeIcon, ListOrdered, MenuIcon, PackageSearchIcon, PercentCircleIcon, Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
-import { Logo } from "./logo";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Separator } from "./ui/separator";
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "./ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Separator } from "../ui/separator";
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTrigger } from "../ui/sheet";
 import { Cart } from "./cart";
-import { Badge } from "./ui/badge";
-import { useCartContext } from "@/providers/cart-context";
+import { Badge } from "../ui/badge";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth-config";
+import { CartQuantity } from "@/providers/cart-context";
+import { Logo } from "../logo";
+import { ButtonLogin, ButtonLogoff } from "./button-login-logoff";
+import { Input } from "../ui/input";
+import { SearchProducts } from "./search-form-products";
 
 
 
-export function Header() {
+export async function Header() {
 
-    const { data, status } = useSession();
 
-    const { cartTotalQuantity } = useCartContext();
+    const session = await getServerSession(authOptions);
+
 
     return (
         <header className="fixed z-50 w-full">
-            <Card className="flex justify-between rounded-none p-6">
+            <Card className="flex justify-between items-center gap-4 rounded-none p-6">
                 <Sheet>
                     <SheetTrigger asChild>
                         <Button size="icon" variant="outline">
@@ -33,16 +35,16 @@ export function Header() {
                     </SheetTrigger>
                     <SheetContent side="left" className="gap-4 flex flex-col">
                         <SheetHeader className="text-left text-lg font-semibold">Menu</SheetHeader>
-                        {status === 'unauthenticated' && <Button variant="outline" className="w-full h-12 gap-2" onClick={() => signIn()}><LogInIcon /> Fazer Login</Button>}
-
                         <MenuButton href="/"><HomeIcon />Página Inicial</MenuButton>
                         <MenuButton href="/deals"><PercentCircleIcon />Ofertas</MenuButton>
                         <MenuButton href="/categories/home"><ListOrdered />Catálogo</MenuButton>
-
                     </SheetContent>
                 </Sheet>
 
-                {/* <Logo /> */}
+                <div className="w-full flex gap-4 items-center">
+                    <Logo />
+                    <span className="hidden xs:block"><SearchProducts /></span>
+                </div>
 
 
                 <div className="flex items-center gap-4">
@@ -51,8 +53,8 @@ export function Header() {
                     <SheetTrigger asChild id="cart" className="flex w-16 relative" >
                         <Button size="icon" variant="outline" className="">
                             <ShoppingCart size={20} />
-                            <Badge className=" absolute -top-2 -right-1 text-xs">
-                                {cartTotalQuantity}
+                            <Badge className=" absolute -top-3 -right-3 text-xs">
+                                <CartQuantity />
                             </Badge>
                         </Button>
                     </SheetTrigger>
@@ -62,16 +64,15 @@ export function Header() {
                     </SheetContent>
 
 
-                    {(status === "unauthenticated" || status === "loading") &&
-                        <Button className="flex gap-1  rounded-full" variant={"outline"} onClick={() => signIn()} title="Fazer login"><User2Icon /></Button>}
+                    {(!session) && <ButtonLogin />}
 
-                    {status === 'authenticated' &&
+                    {session &&
                         <Sheet>
                             <SheetTrigger asChild>
                                 <Avatar className="cursor-pointer">
 
-                                    <AvatarFallback>{data?.user?.name && data.user.name[0].toLocaleUpperCase()}</AvatarFallback>
-                                    {data?.user?.image && <AvatarImage src={data?.user?.image} alt={data?.user?.name ?? ""} />}
+                                    <AvatarFallback>{session?.user?.name && session.user.name[0].toLocaleUpperCase()}</AvatarFallback>
+                                    {session?.user?.image && <AvatarImage src={session?.user?.image} alt={session?.user?.name ?? ""} />}
 
                                 </Avatar>
                             </SheetTrigger>
@@ -80,19 +81,19 @@ export function Header() {
 
                                     <div className="flex gap-4 items-center">
                                         <Avatar>
-                                            {data?.user?.image && <AvatarImage src={data?.user?.image} alt={data?.user?.name ?? ""} />}
+                                            {session?.user?.image && <AvatarImage src={session?.user?.image} alt={session?.user?.name ?? ""} />}
                                         </Avatar>
 
 
                                         <div className="flex flex-col">
-                                            <SheetHeader className="text-left text-lg font-semibold">{data?.user?.name}</SheetHeader>
-                                            <SheetHeader className="text-left text-sm opacity-75">{data?.user?.email}</SheetHeader>
+                                            <SheetHeader className="text-left text-lg font-semibold">{session?.user?.name}</SheetHeader>
+                                            <SheetHeader className="text-left text-sm opacity-75">{session?.user?.email}</SheetHeader>
                                         </div>
                                     </div>
                                 </SheetHeader>
 
 
-                                <Button variant="outline" className="w-full h-12 gap-2" onClick={() => signOut()}><LogOut /> Sair</Button>
+                                <ButtonLogoff />
 
                                 <MenuButton href="/myorders"><PackageSearchIcon />Meus Pedidos</MenuButton>
 

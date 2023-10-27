@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { ImageResponse } from 'next/server'
+import { ImageResponse } from 'next/og'
 
 import colors from 'tailwindcss/colors'
 import { fetchAPI } from '@/lib/fetch-api'
@@ -18,7 +18,7 @@ export const contentType = 'image/png'
 
 // Image generation
 export async function getProduct(slug: string): Promise<Product> {
-    const response = await fetchAPI(`/product/${slug}`, { next: { tags: ["product"] } });
+    const response = await fetchAPI(`/products/${slug}`, { next: { tags: ["product"] } });
     return await response.json();
 }
 

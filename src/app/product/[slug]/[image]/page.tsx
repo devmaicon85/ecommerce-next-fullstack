@@ -41,7 +41,7 @@ interface Params {
 // }
 
 async function getProduct(slug: string): Promise<ProductItem> {
-    const response = await fetchAPI(`/product/${slug}`, { next: { tags: ["product"] } });
+    const response = await fetchAPI(`/products/${slug}`, { next: { tags: ["product"] } });
     return await response.json();
 }
 

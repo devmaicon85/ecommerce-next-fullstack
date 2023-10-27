@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getOrderStatus } from "./helpers/status";
 import format from "date-fns/format/index.js";
+import { redirect } from "next/navigation";
 
 export default async function MyOrders() {
 
@@ -19,7 +20,7 @@ export default async function MyOrders() {
 
 
     if (!session || !session.user) {
-        return <Container>Você precisa estar logado</Container>
+        redirect('/api/auth/signin');
     }
 
 
@@ -71,7 +72,7 @@ export default async function MyOrders() {
 
 
                 {orders.map(order => (
-                    <Accordion type="single" defaultValue={order.id}  collapsible key={order.id} className="max-w-xl mx-auto p-2 m-2" >
+                    <Accordion type="single"  collapsible key={order.id} className="max-w-xl mx-auto p-2 m-2" >
                         <AccordionItem value={order.id}>
                             <AccordionTrigger>
 

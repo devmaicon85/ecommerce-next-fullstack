@@ -20,7 +20,7 @@ interface ICartContext {
     onMinusQuantity: (product: CartProduct) => void;
     onPlusQuantity: (product: CartProduct) => void;
     onRemoveCart: (product: CartProduct) => void;
-    onResetCart:()=>void;
+    onResetCart: () => void;
 }
 
 
@@ -53,7 +53,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         const getCartStorage = localStorage.getItem(nameCartStorage);
         const initialCart = getCartStorage ? JSON.parse(getCartStorage) : [];
 
-        if(initialCart.length > 0) {
+        if (initialCart.length > 0) {
             setProducts(initialCart);
         }
     }, [])
@@ -143,7 +143,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
             onMinusQuantity: (product: CartProduct) => handleMinusQuantity(product),
             onPlusQuantity: (product: CartProduct) => handlePlusQuantity(product),
             onRemoveCart: (product: CartProduct) => handleRemoveCart(product),
-            onResetCart:handleResetCart,
+            onResetCart: handleResetCart,
         }}>
             <Sheet key={"cart"} >
                 {children}
@@ -153,3 +153,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 }
 
 export const useCartContext = () => useContext(CartContext);
+
+
+export const CartQuantity = () => {
+    const { cartTotalQuantity } = useCartContext();
+    return cartTotalQuantity;
+}
