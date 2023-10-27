@@ -27,7 +27,7 @@ export async function Header({ children }: { children: React.ReactNode }) {
     return (
         <header className="w-full">
             <div className="flex flex-col  sticky top-0 z-10 ">
-                <Card className="flex  justify-between items-center gap-4 rounded-none p-6">
+                <Card className="flex border-0 justify-between items-center gap-4 rounded-none p-6">
                     <Sheet>
                         <SheetTrigger asChild>
                             <Button size="icon" variant="outline">

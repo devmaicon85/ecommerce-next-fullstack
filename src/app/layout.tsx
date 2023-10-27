@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={`${inter.className} `}>
-        <div className="flex h-screen flex-col overflow-y-scroll  pr-5">
+        <div className="flex h-screen flex-col overflow-y-scroll  ">
           <AuthProvider>
 
             <CartProvider>
