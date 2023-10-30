@@ -1,7 +1,7 @@
 import { BadgeTitlePage } from "@/components/badge-title-page"
 import { Container } from "@/components/container"
 import { ProductCard } from "@/components/product-card"
-import { fetchAuthenticated } from "@/lib/fetch-authenticate"
+import { fetchAuthenticated } from "@/lib/fetch-authenticated"
 import { Product } from "@prisma/client"
 import { Home } from "lucide-react"
 import Link from "next/link"

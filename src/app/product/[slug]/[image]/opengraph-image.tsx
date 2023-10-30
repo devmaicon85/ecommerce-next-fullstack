@@ -3,7 +3,7 @@ import { ImageResponse } from 'next/og'
 // import { ImageResponse } from 'next/server'
 
 import colors from 'tailwindcss/colors'
-import { fetchAuthenticated } from '@/lib/fetch-authenticate'
+import { fetchAuthenticated } from '@/lib/fetch-authenticated'
 import { Product } from '@prisma/client'
 // Route segment config
 export const runtime = 'edge'

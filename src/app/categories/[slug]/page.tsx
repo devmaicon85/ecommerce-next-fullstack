@@ -7,7 +7,7 @@ import Link from "next/link"
 import { SectionTitle } from "@/components/section-title"
 import { Home } from "lucide-react"
 import { Container } from "@/components/container"
-import { fetchAuthenticated } from "@/lib/fetch-authenticate"
+import { fetchAuthenticated } from "@/lib/fetch-authenticated"
 import { Category, Product } from "@prisma/client"
 
 

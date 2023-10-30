@@ -13,7 +13,7 @@ import Link from "next/link";
 import { getOrderStatus } from "./helpers/status";
 import format from "date-fns/format/index.js";
 import { redirect } from "next/navigation";
-import { fetchAuthenticated } from "@/lib/fetch-authenticate";
+import { fetchAuthenticated } from "@/lib/fetch-authenticated";
 
 import { headers } from 'next/headers'
 
