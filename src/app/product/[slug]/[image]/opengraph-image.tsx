@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { ImageResponse } from 'next/og'
-// import { ImageResponse } from 'next/server'
+// import { ImageResponse } from 'next/og'
+import { ImageResponse } from 'next/server'
 
 import colors from 'tailwindcss/colors'
 import { fetchAuthenticated } from '@/lib/fetch-authenticated'
