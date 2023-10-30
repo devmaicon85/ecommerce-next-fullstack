@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import { ImageResponse } from 'next/og'
+// import { ImageResponse } from 'next/og'
 
 import colors from 'tailwindcss/colors'
 import { fetchAPI } from '@/lib/fetch-api'
 import { Product } from '@prisma/client'
+import { ImageResponse } from 'next/server'
 // Route segment config
 export const runtime = 'edge'
 
