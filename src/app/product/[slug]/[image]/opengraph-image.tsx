@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-// import { ImageResponse } from 'next/og'
+import { ImageResponse } from 'next/og'
+// import { ImageResponse } from 'next/server'
 
 import colors from 'tailwindcss/colors'
 import { fetchAPI } from '@/lib/fetch-api'
 import { Product } from '@prisma/client'
-import { ImageResponse } from 'next/server'
 // Route segment config
 export const runtime = 'edge'
 
@@ -46,11 +46,11 @@ export default async function OgImage({ params }: { params: { slug: string } }) 
                     alt={product.name}
                     style={{
                         objectFit: 'contain',
-                        width:'100%',
-                        height:'100%',
+                        width: '100%',
+                        height: '100%',
                     }}
-                    
-                    
+
+
                 />
             </div>
         ),

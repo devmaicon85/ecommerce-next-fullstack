@@ -1,9 +1,22 @@
 import { env } from '@/env';
-import { headers } from 'next/headers';
+import { GetCurrentUserServer } from './session';
 
 export async function fetchAPI(path: string, init?: RequestInit | undefined) {
   const baseUrl = env.NEXT_PUBLIC_URL_API;
   const url = baseUrl + path;
 
-  return fetch(url, { ...init, headers: headers() });
+  const { cookieToken } = await GetCurrentUserServer();
+
+  const headers = {
+    'Content-Type': 'application/json',
+    Cookie: cookieToken,
+    ...init?.headers,
+  } as HeadersInit | undefined;
+
+  const options = {
+    ...init,
+    headers,
+  } as RequestInit | undefined;
+
+  return fetch(url, options);
 }
