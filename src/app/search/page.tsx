@@ -39,7 +39,11 @@ export default async function SearchPage({ searchParams }: Props) {
         <Container>
             {products.length === 0 && (
                 <div className="flex flex-col items-center my-10 justify-center gap-4">
-                    Nenhum resultado encontrado
+                    <p className="">Nenhum resultado encontrado para <span className="font-bold">{query}</span> ... </p>
+                    <p className="italic">mas que tal aproveitar pra ver umas ofertas?</p>
+
+                    <DealsPage />
+
                 </div>
             )}
 
@@ -63,7 +67,6 @@ export default async function SearchPage({ searchParams }: Props) {
             )}
 
 
-            <DealsPage />
 
         </Container>
 

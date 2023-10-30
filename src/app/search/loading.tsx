@@ -20,7 +20,7 @@ export default function SearchLoading() {
             <hr className="my-5 border-0" />
 
 
-            <div className="flex flex-wrap gap-6">
+            <div className="flex flex-wrap gap-6 items-center justify-center">
                 
                 {Array.from({length:14}).map((_, index) => (
                     <Skeleton key={index} className="rounded-lg h-44 w-40 bg-accent"/>

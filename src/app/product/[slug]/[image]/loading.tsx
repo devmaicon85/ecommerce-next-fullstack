@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils"
 
 export default async function Loading() {
     return (
-        <div>
+        <div >
 
             <div className="flex flex-col  sticky top-0 -z-10">
                 <hr className="my-5 border-0" />

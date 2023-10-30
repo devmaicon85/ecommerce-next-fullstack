@@ -5,7 +5,7 @@ import { FormatCurrency } from "@/helpers/formatCurrency";
 import { ProductHelper } from "@/helpers/productHelper";
 import { authOptions } from "@/lib/auth-config";
 import { prismaClient } from "@/lib/prisma";
-import { OrderItems, Prisma } from "@prisma/client";
+import { Order, OrderItems, Prisma, Product } from "@prisma/client";
 import { Home } from "lucide-react";
 import { getServerSession } from "next-auth"
 import Image from "next/image";
@@ -13,6 +13,40 @@ import Link from "next/link";
 import { getOrderStatus } from "./helpers/status";
 import format from "date-fns/format/index.js";
 import { redirect } from "next/navigation";
+import { fetchAPI } from "@/lib/fetch-api";
+
+import { headers } from 'next/headers'
+
+type MyOrderItems = OrderItems & {
+    product: Product
+}
+
+type MyOrders = Order & {
+    OrderItems: MyOrderItems[];
+
+}
+
+
+type Error = {
+    error: string;
+}
+async function GetOrders(): Promise<MyOrders[] | Error> {
+
+    const response = await fetchAPI('/myorders', {
+        method: 'GET',
+    });
+
+    if (response.ok) {
+        const myOrders = await response.json();
+        return myOrders;
+    } else {
+        const error: Error = {
+            error: response.statusText
+        }
+        return error;
+    }
+
+}
 
 export default async function MyOrders() {
 
@@ -24,24 +58,20 @@ export default async function MyOrders() {
     }
 
 
+    const result = await GetOrders();
+
+    if ('error' in result) {
+        return <Container>{result.error}</Container>
+    }
+
+    const myOrders = result;
 
 
-    const orders = await prismaClient.order.findMany({
-        include: {
-            OrderItems: {
-                include: {
-                    product: true
-                }
-            },
 
-        },
-        where: {
-            userId: session.user.id
-        },
-        orderBy:{
-            createdAt: 'desc'
-        }
-    })
+
+    console.log("🚀 ~ file: page.tsx:50 ~ MyOrders ~ myOrders:", myOrders)
+
+
 
 
     function subTotal(orderItems: OrderItems[]) {
@@ -71,8 +101,11 @@ export default async function MyOrders() {
             <div>
 
 
-                {orders.map(order => (
-                    <Accordion type="single"  collapsible key={order.id} className="max-w-xl mx-auto p-2 m-2" >
+                {myOrders.length === 0 && <p>Não ha pedidos</p>}
+
+
+                {myOrders.length > 0 && myOrders.map(order => (
+                    <Accordion type="single" collapsible key={order.id} className="max-w-xl mx-auto p-2 m-2" >
                         <AccordionItem value={order.id}>
                             <AccordionTrigger>
 
@@ -80,7 +113,7 @@ export default async function MyOrders() {
                                     <div className="flex flex-col">
                                         <div className="font-bold  text-left ">DATA PEDIDO:</div>
                                         <div className="">
-                                            <span>{format(order.createdAt, 'dd/MM/yyyy HH:mm')}</span>
+                                            <span>{format(new Date(order.createdAt), 'dd/MM/yyyy HH:mm')}</span>
                                         </div>
                                     </div>
                                     <div className="flex flex-col">
@@ -94,6 +127,8 @@ export default async function MyOrders() {
                             </AccordionTrigger>
 
                             <AccordionContent>
+
+
 
                                 {order.OrderItems.map((item) => (
                                     <div key={item.id} className="flex gap-2 my-2">
@@ -113,7 +148,7 @@ export default async function MyOrders() {
                                                     <span className="text-base font-bold ">{FormatCurrency(+item.product.basePrice)}</span></>
                                                 }
                                             </div>
-                                            <span className="text-xs opacity-50">Qtd: {item.quantity.toFixed(0)}</span>
+                                            <span className="text-xs opacity-50">Qtd: {Number(item.quantity).toFixed(0)}</span>
                                         </div>
 
                                         <hr className="my-5 border-1" />
