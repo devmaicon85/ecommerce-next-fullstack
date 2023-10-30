@@ -22,7 +22,7 @@ export function Cart() {
 
     const [loading, setLoading] = useState(false);
 
-    const { push } = useRouter();
+    const router = useRouter();
 
     const { data } = useSession();
 
@@ -38,14 +38,25 @@ export function Cart() {
         const order = await createOrder(products, data.user.id);
 
         if (order.id) {
-            onResetCart();
             const checkout = await createCheckout(products, order.id);
+            console.log("🚀 ~ file: cart.tsx:43 ~ handleFinishPurchaseClick ~ checkout:", checkout)
 
-            const stripe = await loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
+            try {
 
-            stripe?.redirectToCheckout({
-                sessionId: checkout.id
-            })
+                const stripe = await loadStripe(env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!);
+                console.log("🚀 ~ file: cart.tsx:45 ~ handleFinishPurchaseClick ~ stripe:", stripe)
+
+
+                stripe?.redirectToCheckout({
+                    sessionId: checkout.id
+                })
+
+            } catch (error) {
+                router.push("/myorders");
+            }finally{   
+                onResetCart();
+            }
+
         }
 
         setLoading(false);
