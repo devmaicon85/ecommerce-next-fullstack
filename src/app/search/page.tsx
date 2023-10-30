@@ -1,7 +1,7 @@
 import { BadgeTitlePage } from "@/components/badge-title-page"
 import { Container } from "@/components/container"
 import { ProductCard } from "@/components/product-card"
-import { fetchAPI } from "@/lib/fetch-api"
+import { fetchAuthenticated } from "@/lib/fetch-authenticate"
 import { Product } from "@prisma/client"
 import { Home } from "lucide-react"
 import Link from "next/link"
@@ -15,7 +15,7 @@ async function getProducts(query: string): Promise<Product[]> {
 
     // aguarda 3 segundos para demorar a consulta
     await new Promise(resolve => setTimeout(resolve, 3000))
-    const response = await fetchAPI(`/products/search?q=${query}`, { next: { tags: ["search"] } });
+    const response = await fetchAuthenticated(`/products/search?q=${query}`, { next: { tags: ["search"] } });
     return await response.json();
 }
 

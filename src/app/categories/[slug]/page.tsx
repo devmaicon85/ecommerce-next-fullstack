@@ -7,7 +7,7 @@ import Link from "next/link"
 import { SectionTitle } from "@/components/section-title"
 import { Home } from "lucide-react"
 import { Container } from "@/components/container"
-import { fetchAPI } from "@/lib/fetch-api"
+import { fetchAuthenticated } from "@/lib/fetch-authenticate"
 import { Category, Product } from "@prisma/client"
 
 
@@ -15,7 +15,7 @@ type CategoryProductsProps = Category & {
     products: Product[]
 }
 async function GetCategoryProducts(slug: string):Promise<CategoryProductsProps> {
-    const response = await fetchAPI(`/categories/${slug}`);
+    const response = await fetchAuthenticated(`/categories/${slug}`);
 
     const categoriesProducts = await response.json();
     return categoriesProducts;

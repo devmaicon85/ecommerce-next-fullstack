@@ -1,7 +1,7 @@
 import { BadgeTitlePage } from "@/components/badge-title-page"
 import { Container } from "@/components/container"
 import { ProductCard } from "@/components/product-card"
-import { fetchAPI } from "@/lib/fetch-api"
+import { fetchAuthenticated } from "@/lib/fetch-authenticate"
 import { prismaClient } from "@/lib/prisma"
 import { Product } from "@prisma/client"
 import { Home } from "lucide-react"
@@ -10,7 +10,7 @@ import Link from "next/link"
 
 
 async function GetDealsProducts(): Promise<Product[]> {
-    const response = await fetchAPI(`/products/deals`);
+    const response = await fetchAuthenticated(`/products/deals`);
     const products = await response.json()
     return products
 }

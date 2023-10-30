@@ -13,7 +13,7 @@ import Link from "next/link";
 import { getOrderStatus } from "./helpers/status";
 import format from "date-fns/format/index.js";
 import { redirect } from "next/navigation";
-import { fetchAPI } from "@/lib/fetch-api";
+import { fetchAuthenticated } from "@/lib/fetch-authenticate";
 
 import { headers } from 'next/headers'
 
@@ -32,7 +32,7 @@ type Error = {
 }
 async function GetOrders(): Promise<MyOrders[] | Error> {
 
-    const response = await fetchAPI('/myorders', {
+    const response = await fetchAuthenticated('/myorders', {
         method: 'GET',
     });
 
