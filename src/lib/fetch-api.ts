@@ -1,6 +1,6 @@
 import { env } from '@/env';
 
-export async function fetch(path: string, init?: RequestInit | undefined) {
+export async function fetchAPI(path: string, init?: RequestInit | undefined) {
   const baseUrl = env.NEXT_PUBLIC_URL_API;
   const url = baseUrl + path;
 

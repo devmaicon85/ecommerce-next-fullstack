@@ -16,7 +16,7 @@ import { BadgeDiscount } from "@/components/badge-discount"
 import { ProductHelper } from "@/helpers/productHelper"
 import { Container } from "@/components/container"
 import { Metadata } from "next"
-import { fetchAuthenticated } from "@/lib/fetch-authenticated"
+import { fetchAPI } from "@/lib/fetch-api"
 
 type ProductItem = Product & {
     Category: Category & {
@@ -41,7 +41,7 @@ interface Params {
 // }
 
 async function getProduct(slug: string): Promise<ProductItem> {
-    const response = await fetchAuthenticated(`/products/${slug}`, { next: { tags: ["product"] } });
+    const response = await fetchAPI(`/products/${slug}`, { next: { tags: ["product"] } });
     return await response.json();
 }
 

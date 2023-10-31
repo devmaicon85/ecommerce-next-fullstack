@@ -2,8 +2,8 @@
 import { ImageResponse } from 'next/og'
 
 import colors from 'tailwindcss/colors'
-import { fetchAuthenticated } from '@/lib/fetch-authenticated'
 import { Product } from '@prisma/client'
+import { fetchAPI } from '@/lib/fetch-api'
 // Route segment config
 export const runtime = 'edge'
 
@@ -18,7 +18,7 @@ export const contentType = 'image/png'
 
 // Image generation
 export async function getProduct(slug: string): Promise<Product> {
-    const response = await fetch(`/products/${slug}`, { next: { tags: ["product"] } });
+    const response = await fetchAPI(`/products/${slug}`, { next: { tags: ["product"] } });
     return await response.json();
 }
 
